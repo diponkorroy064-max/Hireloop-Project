@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@import "@heroui/styles";
+
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+/* 
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+}
+
+@plugin "daisyui/theme" {
+  name: "synthwave";
+} */
+
