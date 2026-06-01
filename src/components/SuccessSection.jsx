@@ -66,8 +66,9 @@ export default function SuccessSection() {
         }
     }
 
+    
     return (
-        <section className="bg-[#0b0b0c] text-white py-24 px-6 md:px-12 lg:px-24">
+        <section className="bg-[#0b0b0c] text-white py-10 px-6 md:px-12 lg:px-24">
             <div className="max-w-6xl mx-auto flex flex-col items-center text-center">
 
                 {/* Top Tag */}

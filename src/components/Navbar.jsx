@@ -18,7 +18,7 @@ export default function Navbar() {
     return (
         <header className="container mx-auto w-full py-4 px-4 md:px-8 bg-black">
             <nav className="mx-auto max-w-7xl">
-                <div className="flex items-center justify-between rounded-2xl border border-gray-400 bg-[#151515]/90 px-6 py-4 backdrop-blur-md shadow-lg">
+                <div className="flex items-center justify-between rounded-2xl border border-gray-400 bg-gray-900 px-6 py-4 backdrop-blur-md shadow-lg">
 
                     {/* Logo */}
                     <Link href="/" className="flex items-center">
@@ -34,8 +34,7 @@ export default function Navbar() {
                             <Link
                                 key={link.name}
                                 href={link.href}
-                                className="text-sm text-gray-300 transition hover:text-white"
-                            >
+                                className="text-sm text-gray-300 transition hover:text-white">
                                 {link.name}
                             </Link>
                         ))}
@@ -54,8 +53,7 @@ export default function Navbar() {
 
                         <Link
                             href="/register"
-                            className="rounded-xl bg-linear-to-r from-indigo-600 to-purple-600 px-6 py-3 text-sm font-medium text-white transition hover:scale-105"
-                        >
+                            className="rounded-xl bg-linear-to-r from-indigo-600 to-purple-600 px-6 py-3 text-sm font-medium text-white transition hover:scale-105">
                             Get Started
                         </Link>
                     </div>
@@ -65,8 +63,7 @@ export default function Navbar() {
                     {/* Mobile Menu Button */}
                     <button
                         onClick={() => setIsOpen(!isOpen)}
-                        className="lg:hidden text-white"
-                    >
+                        className="lg:hidden text-white">
                         {isOpen ? <X size={26} /> : <Menu size={26} />}
                     </button>
                 </div>

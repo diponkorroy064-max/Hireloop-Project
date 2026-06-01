@@ -14,8 +14,7 @@ const jobOpenings = [
 export default function JobDiscoverySection() {
     return (
         <section
-            className="w-full bg-black bg-top bg-cover bg-no-repeat text-white py-20 px-4 md:py-28"
-            style={{ backgroundImage: "url('/images/cta-bg.png')" }}>
+            className="w-full bg-black bg-top bg-cover bg-no-repeat text-white py-10 px-4 md:py-20">
             <div className="max-w-6xl mx-auto flex flex-col items-center">
 
                 {/* Top Tag */}
