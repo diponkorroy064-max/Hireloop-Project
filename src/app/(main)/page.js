@@ -1,6 +1,6 @@
 import HeroSection from "@/components/HeroSection";
 import JobDiscoverySection from "@/components/JobDiscoverySection";
-import PricingSection from "@/components/Pricing";
+import PricingSection from "@/components/PricingSection";
 import Stats from "@/components/Stats";
 import SuccessSection from "@/components/SuccessSection";
 import WorldSection from "@/components/WorldSection";

@@ -36,10 +36,11 @@ const SignInPage = () => {
 
 
     const handleSigninGoogle = async () => {
-        await authClient.signIn.social({
+        const data = await authClient.signIn.social({
             provider: "google",
         });
-    };
+        console.log("google sign in response", data);
+    }
 
 
     return (
@@ -98,7 +99,7 @@ const SignInPage = () => {
 
                     <div className="flex gap-2">
                         <Button className="w-full rounded-md bg-[#f58f95] text-white" type="submit">
-                            <Check/>
+                            <Check />
                             Sign In
                         </Button>
                     </div>

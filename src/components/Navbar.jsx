@@ -71,15 +71,22 @@ export default function Navbar() {
                         }
                     </div>
 
-                    
+
                     {/* <ThemeToggle></ThemeToggle> */}
 
                     {/* Mobile Menu Button */}
-                    <button
-                        onClick={() => setIsOpen(!isOpen)}
-                        className="lg:hidden text-white">
-                        {isOpen ? <X size={26} /> : <Menu size={26} />}
-                    </button>
+                    <div className="lg:hidden flex items-center gap-2">
+                        <Avatar>
+                            <Avatar.Image alt="John Doe" src={user?.image} />
+                            <Avatar.Fallback>JD</Avatar.Fallback>
+                        </Avatar>
+
+                        <button
+                            onClick={() => setIsOpen(!isOpen)}
+                            className="text-white">
+                            {isOpen ? <X size={26} /> : <Menu size={26} />}
+                        </button>
+                    </div>
                 </div>
 
 
@@ -87,20 +94,26 @@ export default function Navbar() {
                 {isOpen && (
                     <div className="mt-3 rounded-2xl border border-white/10 bg-[#151515]/95 p-5 lg:hidden">
                         <div className="flex flex-col gap-4">
-                                {navLinks.map((link) => (
-                                    <Link
-                                        key={link.name}
-                                        href={link.href}
-                                        className="text-gray-300 hover:text-white">
-                                        {link.name}
-                                    </Link>
-                                ))}
-                            
+                            {navLinks.map((link) => (
+                                <Link
+                                    key={link.name}
+                                    href={link.href}
+                                    className="text-gray-300 hover:text-white">
+                                    {link.name}
+                                </Link>
+                            ))}
+
                             <hr className="border-white/10" />
 
-                            <Link href="/signin" className="rounded-xl bg-linear-to-r from-purple-600 to-indigo-600 px-5 py-3 text-center text-white">Sign In</Link>
+                            {
+                                user ? <>
+                                    <Link href="/signin" className="rounded-xl bg-linear-to-r from-indigo-600 to-purple-600 px-5 py-3 text-center text-white" onClick={async () => await authClient.signOut()}>Sign Out</Link>
+                                </> : <>
+                                    <Link href="/signin" className="rounded-xl bg-linear-to-r from-purple-600 to-indigo-600 px-5 py-3 text-center text-white">Sign In</Link>
 
-                            <Link href="/signup" className="rounded-xl bg-linear-to-r from-indigo-600 to-purple-600 px-5 py-3 text-center text-white">Get Started</Link>
+                                    <Link href="/signup" className="rounded-xl bg-linear-to-r from-indigo-600 to-purple-600 px-5 py-3 text-center text-white">Get Started</Link>
+                                </>
+                            }
                         </div>
                     </div>
                 )}

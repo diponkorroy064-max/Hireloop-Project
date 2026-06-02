@@ -40,9 +40,11 @@ const SignUpPage = () => {
         }
     }
 
-
-    const handleSigninGoogle = () => {
-        
+    const handleSigninGoogle = async () => {
+        const data = await authClient.signIn.social({
+            provider: "google",
+        });
+        console.log("google sign in response", data);
     }
 
 
