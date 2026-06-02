@@ -36,7 +36,7 @@ const SignUpPage = () => {
         }
         else if (data) {
             toast.success("Sign up successfull! Verify your Email...");
-            router.push('/');
+            router.push('/signin');
         }
     }
 

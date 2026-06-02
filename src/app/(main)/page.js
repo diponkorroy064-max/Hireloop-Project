@@ -4,7 +4,7 @@ import PricingSection from "@/components/Pricing";
 import Stats from "@/components/Stats";
 import SuccessSection from "@/components/SuccessSection";
 import WorldSection from "@/components/WorldSection";
-import Image from "next/image";
+
 
 export default function Home() {
   return (
