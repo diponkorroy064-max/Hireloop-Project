@@ -8,11 +8,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { authClient } from '@/lib/auth-client';
 import { toast } from 'react-toastify';
+import { Radio, RadioGroup } from "@heroui/react";
+
 
 
 const SignUpPage = () => {
     const [isShowPass, setIsShowPass] = useState(false);
     const router = useRouter();
+    const [role, setRole] = useState("seeker");
 
     const onSubmit = async(e) => {
         e.preventDefault();
@@ -26,6 +29,7 @@ const SignUpPage = () => {
             image: user.image,
             email: user.email,
             password: user.password,
+            role: user.role,
             // callbackURL: "/",
         });
 
@@ -141,6 +145,29 @@ const SignUpPage = () => {
                         <FieldError />
                         <p className='absolute top-8 right-3 text-xl' onClick={() => setIsShowPass(!isShowPass)}>{isShowPass ? <FaEyeSlash /> : <FaEye />}</p>
                     </TextField>
+
+                    <div className=''>
+                        <Label>Subscription plan</Label>
+                        <RadioGroup defaultValue="seeker" name="role" onChange={(value)=>setRole(value)} orientation="horizontal">
+                            <Radio value="seeker">
+                                <Radio.Control>
+                                    <Radio.Indicator />
+                                </Radio.Control>
+                                <Radio.Content>
+                                    <Label>Job Seeker</Label>
+                                </Radio.Content>
+                            </Radio>
+
+                            <Radio value="recruiter">
+                                <Radio.Control>
+                                    <Radio.Indicator />
+                                </Radio.Control>
+                                <Radio.Content>
+                                    <Label>Recruiter</Label>
+                                </Radio.Content>
+                            </Radio>
+                        </RadioGroup>
+                    </div>
 
                     <div className='flex justify-between items-center text-[12px]'>
                         <h2>Remember Me</h2>

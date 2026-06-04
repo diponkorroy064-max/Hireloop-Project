@@ -13,7 +13,7 @@ export default function Navbar() {
     const { data, isPending } = authClient.useSession();
     // console.log("data from navbar", data);
     const user = data?.user;
-    console.log("user in  navbar", user);
+    // console.log("user in  navbar", user);
 
 
     const navLinks = [
@@ -58,6 +58,7 @@ export default function Navbar() {
 
                         {
                             user ? <>
+                                <p>{user?.name}</p>
                                 <Avatar>
                                     <Avatar.Image alt="John Doe" src={user?.image} />
                                     <Avatar.Fallback>JD</Avatar.Fallback>
