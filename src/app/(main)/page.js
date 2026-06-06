@@ -1,9 +1,9 @@
-import HeroSection from "@/components/HeroSection";
-import JobDiscoverySection from "@/components/JobDiscoverySection";
-import PricingSection from "@/components/PricingSection";
-import Stats from "@/components/Stats";
-import SuccessSection from "@/components/SuccessSection";
-import WorldSection from "@/components/WorldSection";
+import HeroSection from "@/components/home/HeroSection";
+import JobDiscoverySection from "@/components/home/JobDiscoverySection";
+import PricingSection from "@/components/home/PricingSection";
+import Stats from "@/components/home/Stats";
+import SuccessSection from "@/components/home/SuccessSection";
+import WorldSection from "@/components/home/WorldSection";
 
 
 export default function Home() {

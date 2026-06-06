@@ -18,7 +18,7 @@ export default function Navbar() {
 
     const navLinks = [
         { name: "Browse Jobs", href: "/jobs" },
-        { name: "Company", href: "/company" },
+        { name: "Company", href: "/dashboard/recruiter/company" },
         { name: "Pricing", href: "/pricing" },
     ];
 
@@ -55,14 +55,15 @@ export default function Navbar() {
                         </div>
 
                         <div className="h-6 w-px bg-white/10" />
-
                         {
                             user ? <>
                                 <p>{user?.name}</p>
-                                <Avatar>
-                                    <Avatar.Image alt="John Doe" src={user?.image} />
-                                    <Avatar.Fallback>JD</Avatar.Fallback>
-                                </Avatar>
+                                <Link href="/dashboard/recruiter">
+                                    <Avatar>
+                                        <Avatar.Image alt="John Doe" src={user?.image} />
+                                        <Avatar.Fallback>JD</Avatar.Fallback>
+                                    </Avatar>
+                                </Link>
                                 <Link href="/signin" className="text-sm font-medium text-indigo-400 hover:text-indigo-300"> <Button className="rounded-xl" onClick={async () => await authClient.signOut()}>Sign Out</Button></Link>
                             </> : <>
                                 <Link href="/signin" className="text-sm font-medium text-indigo-400 hover:text-indigo-300"> <Button className="rounded-xl">Sign In</Button></Link>
