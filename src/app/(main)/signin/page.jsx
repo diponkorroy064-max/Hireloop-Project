@@ -7,10 +7,17 @@ import { FcGoogle } from 'react-icons/fc';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
 import { authClient } from '@/lib/auth-client';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 
 const SignInPage = () => {
     const [isShowPass, setIsShowPass] = useState(false);
+
+    const searchParams = useSearchParams();
+    const redirectTo = searchParams.get("redirect") || "/";
+    console.log("Redirect after sign in:", redirectTo);
+
+    const router = useRouter();
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -22,7 +29,6 @@ const SignInPage = () => {
             email: user.email,
             password: user.password,
             rememberMe: true,
-            callbackURL: "/",
         });
         console.log("sign in response", data, error);
 
@@ -31,6 +37,7 @@ const SignInPage = () => {
         }
         else if (data) {
             toast.success("Signed In successfull!")
+            router.push(redirectTo);
         }
     }
 
@@ -112,7 +119,7 @@ const SignInPage = () => {
                 <div className='flex justify-center flex-col space-y-3'>
                     <Button onClick={handleSigninGoogle} className="w-full rounded-md border border-gray-400 text-gray-900 bg-white hover:bg-[#f58f95] hover:text-white"><FcGoogle /> Continue with Google</Button>
 
-                    <h2 className='text-center'>Don`t have an account? <span><Link className='text-red-500' href={'/signup'}>Sign Up</Link></span></h2>
+                    <h2 className='text-center'>Don`t have an account? <span><Link className='text-red-500' href={`/signup?redirect=${redirectTo}`}>Sign Up</Link></span></h2>
                 </div>
             </div>
         </div>
@@ -120,3 +127,5 @@ const SignInPage = () => {
 };
 
 export default SignInPage;
+
+

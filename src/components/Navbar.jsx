@@ -18,9 +18,24 @@ export default function Navbar() {
 
     const navLinks = [
         { name: "Browse Jobs", href: "/jobs" },
-        { name: "Company", href: "/dashboard/recruiter/company" },
-        { name: "Pricing", href: "/pricing" },
+        { name: "Company", href: "/companies" },
+        { name: "Pricing", href: "/plan" },
     ];
+
+    const dashboardLinks = {
+        seeker: '/dashboard/seeker',
+        recruiter: '/dashboard/recruiter',
+        admin: '/dashboard/admin'
+    }
+
+    if (user?.email) {
+        navLinks.push(
+            {
+                name: 'Dashboard',
+                href: dashboardLinks[user?.role || 'seeker']
+            }
+        )
+    }
 
 
     return (

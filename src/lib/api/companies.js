@@ -1,13 +1,18 @@
-import { ServerFetch } from "../core/server";
+import { protectedFetch, ServerFetch } from "../core/server";
 import { getUserSession } from "../core/session";
 
-
 export const getRecruiterCompany = async (recruiterId) => {
-   return ServerFetch(`/api/my/companies?recruiterId=${recruiterId}`);
-}
+    return ServerFetch(`/api/my/companies?recruiterId=${recruiterId}`);
+};
 
 export const getLoggedInRecruiterCompany = async () => {
     const user = await getUserSession();
     return getRecruiterCompany(user?.id);
-}
+};
+
+export const getCompanies = async () => {
+    // return ServerFetch(`/api/companies`);
+    return protectedFetch(`/api/companies`);
+};
+
 

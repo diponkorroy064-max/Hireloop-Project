@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const DashboardStats = ({ RecruiterStatsData }) => {
     console.log("RecruiterStatsData in DashboardStats", RecruiterStatsData);
 

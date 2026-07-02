@@ -17,7 +17,7 @@ const textAreaClass = "w-full bg-zinc-900/50 border border-zinc-800 text-white r
 
 export default function CompanyProfile({ recruiter, recruiterCompany }) {
     // 1. Core State---
-    const [company, setCompany] = useState(recruiterCompany); // Keeps null initially to showcase empty template structure
+    const [company, setCompany] = useState(recruiterCompany);
     const [isEditing, setIsEditing] = useState(false);
     const [errors, setErrors] = useState({});
 
@@ -97,7 +97,8 @@ export default function CompanyProfile({ recruiter, recruiterCompany }) {
             employeeCount: employeeCount || '1-10 employees',
             description,
             logo: logoUrl || (company ? company.logo : ''),
-            status: company ? company.status : 'Pending', // Retains status if updating profile details
+            // status: company?.status || 'Pending',
+            status: company && company.status ? company.status : 'Pending', // Retains status if updating profile details
             recruiterId: recruiter.id // Associate company with the current recruiter
         }
         setCompany(newCompanyData);
@@ -106,8 +107,9 @@ export default function CompanyProfile({ recruiter, recruiterCompany }) {
 
         const payload = await createCompany(newCompanyData);
 
-
         if (payload.insertedId) {
+            const savedCompany = { ...company, _id: payload.insertedId };
+            setCompany(savedCompany);
             toast.success("Company profile created successfully!");
         }
 
@@ -116,9 +118,9 @@ export default function CompanyProfile({ recruiter, recruiterCompany }) {
     };
 
 
-    // 4. State Toggle helper triggers
+    // 4. State Toggle helper triggers---
     const startRegistration = () => {
-        // Hydrate blank template layout states
+        // Hydrate blank template layout states---
         setLogoUrl('');
         setIsEditing(true);
     };
@@ -196,15 +198,15 @@ export default function CompanyProfile({ recruiter, recruiterCompany }) {
 
                 {/* Profile Meta Metrics Grid Section */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="bg-zinc-900/30 border border-zinc-900 p-4 rounded-lg">
+                    <div className="bg-zinc-900/30 border border-gray-800 p-4 rounded-lg">
                         <span className="text-xs text-zinc-500 uppercase font-semibold block">Industry Category</span>
                         <span className="text-zinc-300 font-medium mt-1 block">{company.industry}</span>
                     </div>
-                    <div className="bg-zinc-900/30 border border-zinc-900 p-4 rounded-lg">
+                    <div className="bg-zinc-900/30 border border-gray-800 p-4 rounded-lg">
                         <span className="text-xs text-zinc-500 uppercase font-semibold block">Location</span>
                         <span className="text-zinc-300 font-medium mt-1 block">{company.location}</span>
                     </div>
-                    <div className="bg-zinc-900/30 border border-zinc-900 p-4 rounded-lg">
+                    <div className="bg-zinc-900/30 border border-gray-800 p-4 rounded-lg">
                         <span className="text-xs text-zinc-500 uppercase font-semibold block">Company Scale</span>
                         <span className="text-zinc-300 font-medium mt-1 block">{company.employeeCount}</span>
                     </div>
@@ -214,7 +216,7 @@ export default function CompanyProfile({ recruiter, recruiterCompany }) {
                 {company.description && (
                     <div className="space-y-2">
                         <h3 className="text-sm font-semibold text-zinc-400 uppercase tracking-wider">About our Vision & Culture</h3>
-                        <p className="text-zinc-300 text-sm leading-relaxed whitespace-pre-wrap bg-zinc-900/20 border border-zinc-900/60 p-4 rounded-xl">
+                        <p className="text-zinc-300 text-sm leading-relaxed whitespace-pre-wrap bg-zinc-900/20 border border-gray-800 p-4 rounded-xl">
                             {company.description}
                         </p>
                     </div>
@@ -223,7 +225,7 @@ export default function CompanyProfile({ recruiter, recruiterCompany }) {
         );
     }
 
-    
+
     // --- SUB-VIEW 3: Form Editing & Registration View Structure ---
     return (
         <div className="max-w-3xl mx-auto my-8 bg-zinc-950 p-8 border border-zinc-900 rounded-xl">

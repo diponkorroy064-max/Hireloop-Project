@@ -17,6 +17,7 @@ const DetailsJobPage = async ({ params }) => {
         );
     }
 
+
     // Salary string utility formatter
     const formatSalary = (amount) => {
         if (!amount) return "0";
@@ -34,6 +35,7 @@ const DetailsJobPage = async ({ params }) => {
         });
     };
 
+    
     return (
         <main className="w-full min-h-screen bg-zinc-950 text-zinc-100 p-6 md:p-12 lg:p-16">
             <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
@@ -63,7 +65,6 @@ const DetailsJobPage = async ({ params }) => {
                     </div>
 
 
-
                     {/* Section: Responsibilities */}
                     <section className="space-y-3">
                         <h3 className="text-xl font-semibold text-white">Core Responsibilities</h3>
@@ -72,6 +73,7 @@ const DetailsJobPage = async ({ params }) => {
                         </p>
                     </section>
 
+                    
                     {/* Section: Core Technical Requirements */}
                     <section className="space-y-3">
                         <h3 className="text-xl font-semibold text-white">Requirements & Credentials</h3>
@@ -82,6 +84,7 @@ const DetailsJobPage = async ({ params }) => {
                         </div>
                     </section>
 
+                    
                     {/* Section: Benefits & Perks */}
                     {job.benefits && (
                         <section className="space-y-3">
@@ -93,7 +96,7 @@ const DetailsJobPage = async ({ params }) => {
                     )}
                 </div>
 
-                {/* RIGHT BLOCK: Core Structural Metadata Panel Widget */}
+                {/* RIGHT BLOCK:-- Core Structural Metadata Panel Widget */}
                 <aside className="bg-zinc-900 border border-zinc-800/80 rounded-[32px] p-6 lg:sticky lg:top-8 space-y-6 shadow-xl">
                     <h3 className="text-lg font-semibold text-white">Job Overview</h3>
 
@@ -142,15 +145,11 @@ const DetailsJobPage = async ({ params }) => {
                     </div>
 
 
-
                     {/* Action Button: Apply Routing Link Container */}
-                    <Button
-                        as={Link}
-                        href={`/jobs/${id}/apply`}
-                        className="w-full bg-purple-600 hover:bg-purple-500 text-white font-medium py-6 rounded-xl shadow-lg transition-colors flex items-center justify-center gap-2"
+                    <Link href={`/jobs/${id}/apply`} className="w-full bg-purple-600 hover:bg-purple-500 text-white font-medium py-6 rounded-xl shadow-lg transition-colors flex items-center justify-center gap-2"
                         endContent={<ArrowUpRight className="w-4 h-4" />}>
                         Apply For This Job
-                    </Button>
+                    </Link>
                 </aside>
 
             </div>
