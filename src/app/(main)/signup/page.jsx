@@ -1,341 +1,305 @@
-'use client'
+'use client';
 import React, { useState } from 'react';
-import { Button, FieldError ,Form, Input, Label, TextField,} from "@heroui/react";
+import { Button, FieldError, Form, Input, Label, TextField, Radio, RadioGroup } from "@heroui/react";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Check } from 'lucide-react';
+import { Check, User, Briefcase, Sparkles, ShieldCheck } from 'lucide-react';
 import { FcGoogle } from 'react-icons/fc';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { authClient } from '@/lib/auth-client';
 import { toast } from 'react-toastify';
-import { Radio, RadioGroup } from "@heroui/react";
-
 
 
 const SignUpPage = () => {
     const [isShowPass, setIsShowPass] = useState(false);
-    const router = useRouter();
+    const [isShowConfirmPass, setIsShowConfirmPass] = useState(false);
     const [role, setRole] = useState("seeker");
+    const [passwordValue, setPasswordValue] = useState("");
+    const [loading, setLoading] = useState(false);
 
+    const router = useRouter();
     const searchParams = useSearchParams();
     const redirectTo = searchParams.get("redirect") || "/";
 
-    const onSubmit = async(e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
-
+        setLoading(true);
         const formData = new FormData(e.currentTarget);
         const user = Object.fromEntries(formData.entries());
-        console.log(user);
 
+        if (user.password !== user.confirmPassword) {
+            toast.error("Passwords do not match");
+            setLoading(false);
+            return;
+        }
         const plan = role === "seeker" ? "seeker_free" : "recruiter_free";
 
-        const { data, error } = await authClient.signUp.email({
-            name: user.name,
-            image: user.image,
-            email: user.email,
-            password: user.password,
-            role: user.role,
-            plan: plan
-        });
+        try {
+            const { data, error } = await authClient.signUp.email({
+                name: user.name,
+                image: user.image,
+                email: user.email,
+                password: user.password,
+                role: role,
+                plan: plan,
+            });
 
-        console.log("sign up response", data, error);
-
-        if (error) {
-            toast.error("Sign up failed " + error.message);
+            if (error) {
+                toast.error("Sign up failed: " + error.message);
+            } else if (data) {
+                toast.success("Account created successfully! Please verify your email.");
+                router.push(redirectTo);
+            }
+        } catch (err) {
+            toast.error("An unexpected error occurred. Please try again.");
+        } finally {
+            setLoading(false);
         }
-        else if (data) {
-            toast.success("Sign up successfull! Verify your Email...");
-            router.push(redirectTo);
-        }
-    }
+    };
 
     const handleSigninGoogle = async () => {
-        const data = await authClient.signIn.social({
-            provider: "google",
-        });
-        console.log("google sign in response", data);
-    }
-
+        try {
+            await authClient.signIn.social({
+                provider: "google",
+            });
+        } catch (err) {
+            toast.error("Google sign-in failed");
+        }
+    };
 
     return (
-        <div className="container mx-auto min-h-screen bg-linear-to-br from-zinc-950 via-black to-zinc-900 flex justify-center px-4 py-10">
-            <div className="w-full max-w-6xl mx-auto overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/40 backdrop-blur-xl shadow-[0_0_60px_rgba(0,0,0,0.45)]">
+        <div className="relative min-h-screen w-full bg-zinc-950 text-zinc-100 flex items-center justify-center p-4 md:p-8 overflow-hidden">
+            {/* Background Ambient Glows */}
+            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-blue-600/15 rounded-full blur-[140px] pointer-events-none" />
+            <div className="absolute bottom-10 right-10 w-100 h-100 bg-violet-600/10 rounded-full blur-[120px] pointer-events-none" />
 
-                {/* LEFT SIDE */}
-                {/* <div className="hidden lg:flex flex-col justify-center p-12 border-r border-zinc-800 bg-linear-to-br from-blue-500/10 via-violet-500/10 to-transparent">
-                    <span className="inline-flex w-fit rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-2 text-sm text-blue-400">
-                        Welcome to HireLoop
-                    </span>
+            <div className="relative w-full max-w-5xl overflow-hidden rounded-3xl border border-zinc-800/80 bg-zinc-900/50 backdrop-blur-2xl shadow-2xl grid lg:grid-cols-12 min-h-175">
 
-                    <h1 className="mt-8 text-5xl font-bold text-white leading-tight">
-                        Find Your
-                        <span className="block text-blue-400">
-                            Dream Career
+                {/* LEFT BRANDING SECTION */}
+                <div className="hidden lg:flex lg:col-span-5 flex-col justify-between p-10 border-r border-zinc-800/80 bg-linear-to-br from-blue-900/20 via-zinc-900/40 to-transparent relative overflow-hidden">
+                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f293710_1px,transparent_1px),linear-gradient(to_bottom,#1f293710_1px,transparent_1px)] bg-position-[32px_32px] pointer-events-none" />
+
+                    <div className="relative z-10">
+                        <span className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-3.5 py-1.5 text-xs font-medium text-blue-400 backdrop-blur-md">
+                            <Sparkles size={14} /> Welcome to HireLoop
                         </span>
-                    </h1>
 
-                    <p className="mt-6 text-zinc-400 text-lg">
-                        Join thousands of professionals and recruiters.
-                        Discover opportunities, track applications,
-                        and grow your career.
-                    </p>
+                        <h1 className="mt-8 text-4xl font-extrabold tracking-tight text-white leading-[1.15]">
+                            Find Your <br />
+                            <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-indigo-400 to-violet-400">
+                                Dream Career
+                            </span>
+                        </h1>
 
-                    <div className="grid grid-cols-2 gap-4 mt-10">
-                        <div className="p-5 rounded-2xl bg-zinc-900 border border-zinc-800">
-                            <h3 className="text-3xl font-bold text-white">
-                                5K+
-                            </h3>
-                            <p className="text-zinc-500">
-                                Active Jobs
-                            </p>
-                        </div>
-
-                        <div className="p-5 rounded-2xl bg-zinc-900 border border-zinc-800">
-                            <h3 className="text-3xl font-bold text-white">
-                                2K+
-                            </h3>
-                            <p className="text-zinc-500">
-                                Companies
-                            </p>
-                        </div>
+                        <p className="mt-4 text-zinc-400 text-sm leading-relaxed">
+                            Join thousands of job seekers and employers matching skills with dynamic opportunities daily.
+                        </p>
                     </div>
-                </div> */}
 
-                {/* RIGHT SIDE */}
-                <div className="p-8 lg:p-12 flex items-center justify-center">
-                    <div className="w-full max-w-md">
-
-                        <div className="text-center mb-8">
-                            <h2 className="text-4xl font-bold text-white">
-                                Create Account
-                            </h2>
-
-                            <p className="text-zinc-400 mt-2">
-                                Start your journey with HireLoop
-                            </p>
+                    <div className="relative z-10 space-y-4">
+                        <div className="grid grid-cols-2 gap-3">
+                            <div className="p-4 rounded-2xl bg-zinc-950/60 border border-zinc-800/80 backdrop-blur-sm">
+                                <h3 className="text-2xl font-bold text-white">5K+</h3>
+                                <p className="text-xs text-zinc-400 mt-0.5">Active Jobs</p>
+                            </div>
+                            <div className="p-4 rounded-2xl bg-zinc-950/60 border border-zinc-800/80 backdrop-blur-sm">
+                                <h3 className="text-2xl font-bold text-white">2K+</h3>
+                                <p className="text-xs text-zinc-400 mt-0.5">Companies</p>
+                            </div>
                         </div>
 
-                        <div className="rounded-3xl border border-zinc-800 bg-zinc-900/60 p-8 backdrop-blur-xl">
-
-                            <Form
-                                onSubmit={onSubmit}
-                                className="flex flex-col gap-5"
-                            >
-
-                                <TextField
-                                    isRequired
-                                    name="name"
-                                    type="text"
-                                >
-                                    <Label className="text-zinc-300">
-                                        Full Name
-                                    </Label>
-
-                                    <Input
-                                        className="text-white w-full"
-                                        placeholder="Enter your full name"
-                                    />
-
-                                    <FieldError />
-                                </TextField>
-
-                                <TextField
-                                    isRequired
-                                    name="image"
-                                    type="text"
-                                >
-                                    <Label className="text-zinc-300">
-                                        Profile Image URL
-                                    </Label>
-
-                                    <Input
-                                        className="text-white w-full"
-                                        placeholder="https://example.com/profile.jpg"
-                                    />
-
-                                    <FieldError />
-                                </TextField>
-
-                                <TextField
-                                    isRequired
-                                    name="email"
-                                    type="email"
-                                    validate={(value) => {
-                                        if (
-                                            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
-                                                value
-                                            )
-                                        ) {
-                                            return "Please enter a valid email address";
-                                        }
-                                        return null;
-                                    }}
-                                >
-                                    <Label className="text-zinc-300">
-                                        Email
-                                    </Label>
-
-                                    <Input
-                                        className="text-white w-full"
-                                        placeholder="Enter your email"
-                                    />
-
-                                    <FieldError />
-                                </TextField>
-
-                                <TextField
-                                    isRequired
-                                    minLength={8}
-                                    className="relative"
-                                    name="password"
-                                    type={isShowPass ? "text" : "password"}
-                                    validate={(value) => {
-                                        if (value.length < 8) {
-                                            return "Password must be at least 8 characters";
-                                        }
-                                        if (!/[A-Z]/.test(value)) {
-                                            return "Password must contain at least one uppercase letter";
-                                        }
-                                        if (!/[a-z]/.test(value)) {
-                                            return "Password must contain at least one lowercase letter";
-                                        }
-                                        if (!/[0-9]/.test(value)) {
-                                            return "Password must contain at least one number";
-                                        }
-                                        return null;
-                                    }}
-                                >
-                                    <Label className="text-zinc-300">
-                                        Password
-                                    </Label>
-
-                                    <Input
-                                        className="text-white w-full"
-                                        placeholder="Create a password"
-                                    />
-
-                                    <FieldError />
-
-                                    <button
-                                        type="button"
-                                        onClick={() =>
-                                            setIsShowPass(!isShowPass)
-                                        }
-                                        className="absolute top-8 right-3 text-zinc-400 hover:text-white"
-                                    >
-                                        {isShowPass ? (
-                                            <FaEyeSlash />
-                                        ) : (
-                                            <FaEye />
-                                        )}
-                                    </button>
-                                </TextField>
-
-                                <TextField
-                                    isRequired
-                                    minLength={8}
-                                    className="relative"
-                                    name="confirmPassword"
-                                    type={isShowPass ? "text" : "password"}>
-                                    <Label className="text-zinc-300">
-                                        Confirm Password
-                                    </Label>
-
-                                    <Input
-                                        className="text-white w-full"
-                                        placeholder="Confirm your password"
-                                    />
-
-                                    <FieldError />
-
-                                    <button
-                                        type="button"
-                                        onClick={() =>
-                                            setIsShowPass(!isShowPass)
-                                        }
-                                        className="absolute top-8 right-3 text-zinc-400 hover:text-white">
-                                        {isShowPass ? (
-                                            <FaEyeSlash />
-                                        ) : (
-                                            <FaEye />
-                                        )}
-                                    </button>
-                                </TextField>
-
-                                <div className="rounded-2xl border border-zinc-800 bg-zinc-950/50 p-4">
-                                    <Label className="text-zinc-300 mb-3 block">
-                                        Account Type
-                                    </Label>
-
-                                    <RadioGroup defaultValue="seeker" name="role" orientation="horizontal">
-                                        <Radio value="seeker">
-                                            <Radio.Control>
-                                                <Radio.Indicator />
-                                            </Radio.Control>
-
-                                            <Radio.Content>
-                                                <Label>
-                                                    Job Seeker
-                                                </Label>
-                                            </Radio.Content>
-                                        </Radio>
-
-                                        <Radio value="recruiter">
-                                            <Radio.Control>
-                                                <Radio.Indicator />
-                                            </Radio.Control>
-
-                                            <Radio.Content>
-                                                <Label>
-                                                    Recruiter
-                                                </Label>
-                                            </Radio.Content>
-                                        </Radio>
-                                    </RadioGroup>
-                                </div>
-
-                                <Button
-                                    className="w-full h-12 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold"
-                                    type="submit">
-                                    <Check size={18} />
-                                    Create Account
-                                </Button>
-
-                                <div className="relative text-center">
-                                    <div className="absolute inset-0 flex items-center">
-                                        <div className="w-full border-t border-zinc-800" />
-                                    </div>
-
-                                    <span className="relative bg-zinc-900 px-4 text-sm text-zinc-500">
-                                        Or continue with
-                                    </span>
-                                </div>
-                            </Form>
-
-                            <div className="mt-5 flex flex-col gap-4">
-                                <Button
-                                    onClick={handleSigninGoogle}
-                                    className="w-full h-12 rounded-xl bg-zinc-900 border border-zinc-700 text-white hover:bg-zinc-800">
-                                    <FcGoogle size={20} />
-                                    Continue with Google
-                                </Button>
-
-                                <h2 className="text-center text-zinc-400">
-                                    Already have an account?
-                                    <Link href={`/signin?redirect=${redirectTo}`} className="ml-2 text-blue-400 hover:text-blue-300">
-                                        Sign In
-                                    </Link>
-                                </h2>
-                            </div>
-
+                        <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-blue-950/30 border border-blue-800/30 text-xs text-blue-300">
+                            <ShieldCheck size={20} className="shrink-0 text-blue-400" />
+                            <span>Verified profiles & secure application handling guaranteed.</span>
                         </div>
                     </div>
                 </div>
+
+                {/* RIGHT FORM SECTION */}
+                <div className="lg:col-span-7 p-6 sm:p-10 flex flex-col justify-center">
+                    <div className="w-full max-w-md mx-auto space-y-6">
+
+                        <div className="text-center sm:text-left">
+                            <h2 className="text-3xl font-bold text-white tracking-tight">Create Account</h2>
+                            <p className="text-zinc-400 text-sm mt-1">
+                                Select your path and start your journey with us
+                            </p>
+                        </div>
+
+                        <Form onSubmit={onSubmit} className="flex flex-col gap-4">
+                            {/* ROLE SELECTION */}
+                            <div className="flex flex-col gap-1.5">
+                                <Label className="text-xs font-semibold text-zinc-300 uppercase tracking-wider">
+                                    I want to join as a
+                                </Label>
+
+                                {/* Hidden input to ensure FormData(e.currentTarget) catches "role" */}
+                                <input type="hidden" name="role" value={role} />
+
+                                <div className="grid grid-cols-2 gap-3 pt-1">
+                                    <button
+                                        type="button"
+                                        onClick={() => setRole('seeker')}
+                                        className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${role === 'seeker'
+                                            ? 'border-blue-500 bg-blue-500/10 text-white'
+                                            : 'border-zinc-800 bg-zinc-950/40 text-zinc-400 hover:border-zinc-700'
+                                            }`}
+                                    >
+                                        <div className="flex items-center gap-2 text-sm font-medium">
+                                            <User size={16} className={role === 'seeker' ? 'text-blue-400' : 'text-zinc-400'} />
+                                            Job Seeker
+                                        </div>
+                                        <div className={`w-2 h-2 rounded-full ${role === 'seeker' ? 'bg-blue-400' : 'bg-transparent'}`} />
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        onClick={() => setRole('recruiter')}
+                                        className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${role === 'recruiter'
+                                            ? 'border-blue-500 bg-blue-500/10 text-white'
+                                            : 'border-zinc-800 bg-zinc-950/40 text-zinc-400 hover:border-zinc-700'
+                                            }`}
+                                    >
+                                        <div className="flex items-center gap-2 text-sm font-medium">
+                                            <Briefcase size={16} className={role === 'recruiter' ? 'text-blue-400' : 'text-zinc-400'} />
+                                            Recruiter
+                                        </div>
+                                        <div className={`w-2 h-2 rounded-full ${role === 'recruiter' ? 'bg-blue-400' : 'bg-transparent'}`} />
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* NAME */}
+                            <TextField isRequired name="name" type="text">
+                                <Label className="text-xs text-zinc-300 font-medium">Full Name</Label>
+                                <Input
+                                    className="mt-1 w-full rounded-xl border border-zinc-800 bg-zinc-950/60 px-3.5 py-2.5 text-sm text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none transition-colors"
+                                    placeholder="John Doe"
+                                />
+                                <FieldError className="text-xs text-red-400 mt-1" />
+                            </TextField>
+
+                            {/* PROFILE IMAGE URL */}
+                            <TextField isRequired name="image" type="text">
+                                <Label className="text-xs text-zinc-300 font-medium">Profile Image URL</Label>
+                                <Input
+                                    className="mt-1 w-full rounded-xl border border-zinc-800 bg-zinc-950/60 px-3.5 py-2.5 text-sm text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none transition-colors"
+                                    placeholder="https://example.com/avatar.jpg"
+                                />
+                                <FieldError className="text-xs text-red-400 mt-1" />
+                            </TextField>
+
+                            {/* EMAIL */}
+                            <TextField
+                                isRequired
+                                name="email"
+                                type="email"
+                                validate={(val) => (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(val) ? "Enter a valid email address" : null)}>
+                                <Label className="text-xs text-zinc-300 font-medium">Email Address</Label>
+                                <Input
+                                    className="mt-1 w-full rounded-xl border border-zinc-800 bg-zinc-950/60 px-3.5 py-2.5 text-sm text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none transition-colors"
+                                    placeholder="john@example.com"
+                                />
+                                <FieldError className="text-xs text-red-400 mt-1" />
+                            </TextField>
+
+                            {/* PASSWORD GRID */}
+                            <div className="grid sm:grid-cols-2 gap-3">
+                                {/* PASSWORD */}
+                                <TextField
+                                    isRequired
+                                    name="password"
+                                    type={isShowPass ? "text" : "password"}
+                                    validate={(val) => {
+                                        setPasswordValue(val);
+                                        if (val.length < 8) return "Min 8 characters";
+                                        if (!/[A-Z]/.test(val)) return "Needs uppercase letter";
+                                        if (!/[a-z]/.test(val)) return "Needs lowercase letter";
+                                        if (!/[0-9]/.test(val)) return "Needs number";
+                                        return null;
+                                    }}>
+                                    <Label className="text-xs text-zinc-300 font-medium">Password</Label>
+                                    <div className="relative mt-1">
+                                        <Input
+                                            className="w-full rounded-xl border border-zinc-800 bg-zinc-950/60 pl-3.5 pr-10 py-2.5 text-sm text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none transition-colors"
+                                            placeholder="••••••••" />
+                                        <button
+                                            type="button"
+                                            onClick={() => setIsShowPass(!isShowPass)}
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white transition-colors">
+                                            {isShowPass ? <FaEyeSlash size={14} /> : <FaEye size={14} />}
+                                        </button>
+                                    </div>
+                                    <FieldError className="text-xs text-red-400 mt-1" />
+                                </TextField>
+
+                                {/* CONFIRM PASSWORD */}
+                                <TextField
+                                    isRequired
+                                    name="confirmPassword"
+                                    type={isShowConfirmPass ? "text" : "password"}
+                                    validate={(val) => (val !== passwordValue ? "Passwords match failed" : null)}>
+                                    <Label className="text-xs text-zinc-300 font-medium">Confirm Password</Label>
+                                    <div className="relative mt-1">
+                                        <Input
+                                            className="w-full rounded-xl border border-zinc-800 bg-zinc-950/60 pl-3.5 pr-10 py-2.5 text-sm text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none transition-colors"
+                                            placeholder="••••••••" />
+                                        <button
+                                            type="button"
+                                            onClick={() => setIsShowConfirmPass(!isShowConfirmPass)}
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white transition-colors">
+                                            {isShowConfirmPass ? <FaEyeSlash size={14} /> : <FaEye size={14} />}
+                                        </button>
+                                    </div>
+                                    <FieldError className="text-xs text-red-400 mt-1" />
+                                </TextField>
+                            </div>
+
+                            {/* SUBMIT BUTTON */}
+                            <Button
+                                type="submit"
+                                isLoading={loading}
+                                className="mt-2 w-full h-11 rounded-xl bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white font-medium text-sm transition-all shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2 cursor-pointer">
+                                {!loading && <Check size={16} />}
+                                Create Account
+                            </Button>
+                        </Form>
+
+                        {/* DIVIDER */}
+                        <div className="relative my-4 text-center">
+                            <div className="absolute inset-0 flex items-center">
+                                <div className="w-full border-t border-zinc-800" />
+                            </div>
+                            <span className="relative bg-zinc-900 px-3 text-xs text-zinc-500 uppercase tracking-wider">
+                                Or continue with
+                            </span>
+                        </div>
+
+                        {/* GOOGLE SIGN IN */}
+                        <Button
+                            variant="bordered"
+                            onClick={handleSigninGoogle}
+                            className="w-full h-11 rounded-xl border-zinc-800 bg-zinc-950/40 hover:bg-zinc-800/60 text-zinc-200 text-sm font-medium flex items-center justify-center gap-2.5 transition-all cursor-pointer">
+                            <FcGoogle size={18} />
+                            Continue with Google
+                        </Button>
+
+                        {/* FOOTER */}
+                        <p className="text-center text-xs text-zinc-400 pt-2">
+                            Already have an account?{" "}
+                            <Link
+                                href={`/signin?redirect=${redirectTo}`}
+                                className="text-blue-400 hover:text-blue-300 font-medium transition-colors underline-offset-4 hover:underline">
+                                Sign In
+                            </Link>
+                        </p>
+
+                    </div>
+                </div>
+
             </div>
         </div>
     );
 };
 
 export default SignUpPage;
-
-

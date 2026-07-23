@@ -1,14 +1,7 @@
 "use client";
-
-import {
-    Users,
-    UserCheck,
-    UserX,
-    UserPlus,
-    Search,
-    Download,
-    MoreHorizontal,
-} from "lucide-react";
+import { Users, UserCheck, UserX, UserPlus, Search, Download } from "lucide-react";
+// import { getUsers } from "@/lib/api/users";
+// import { useEffect, useState } from "react";
 
 const stats = [
     {
@@ -79,17 +72,39 @@ const users = [
     },
 ];
 
+
 export default function AdminUsersPage() {
+    // const [users, setUsers] = useState([]);
+    // const [loading, setLoading] = useState(true);
+    // const [search, setSearch] = useState("");
+    // const [roleFilter, setRoleFilter] = useState("All");
+
+    // useEffect(() => {
+    //     const fetchUsers = async () => {
+    //         try {
+    //             const res = await getUsers();
+
+    //             setUsers(res || []);
+    //             console.log("Fetched users:", res);
+    //         } catch (error) {
+    //             console.error("Failed to fetch users:", error);
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     };
+
+    //     fetchUsers();
+    // }, []);
+
+
     return (
         <div className="min-h-screen bg-zinc-950 text-white p-6">
 
-            {/* Header */}
+            {/* --Header-- */}
             <div className="flex flex-col md:flex-row justify-between md:items-center gap-4 mb-8">
                 <div>
                     <h1 className="text-3xl font-bold">User Management</h1>
-                    <p className="text-gray-400 mt-1">
-                        Monitor, filter, and manage platform users.
-                    </p>
+                    <p className="text-gray-400 mt-1">Monitor, filter and manage platform users.</p>
                 </div>
 
                 <div className="flex gap-3">
@@ -101,22 +116,17 @@ export default function AdminUsersPage() {
                     </select>
 
                     <button className="flex items-center gap-2 bg-white text-black px-4 py-2 rounded-lg font-medium hover:bg-gray-200">
-                        <Download size={18} />
-                        Export List
+                        <Download size={18}/> Export List
                     </button>
                 </div>
             </div>
 
-            {/* Stats */}
+            {/* --Stats-- */}
             <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5 mb-8">
                 {stats.map((item, index) => {
                     const Icon = item.icon;
-
                     return (
-                        <div
-                            key={index}
-                            className="bg-zinc-900 border border-zinc-800 rounded-xl p-5"
-                        >
+                        <div key={index} className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
                             <div className="flex justify-between mb-5">
                                 <div>
                                     <p className="text-sm text-gray-400">{item.title}</p>
@@ -127,30 +137,28 @@ export default function AdminUsersPage() {
                                     <Icon size={20} />
                                 </div>
                             </div>
-
                             <p className={`text-sm ${item.color}`}>{item.change}</p>
                         </div>
                     );
                 })}
             </div>
 
-            {/* Search */}
+            {/* --Search-- */}
             <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 mb-5">
                 <div className="relative max-w-sm">
-                    <Search
-                        size={18}
-                        className="absolute left-3 top-3 text-gray-500"
-                    />
+                    <Search size={18} className="absolute left-3 top-3 text-gray-500"/>
 
                     <input
                         type="text"
+                        // value={search}
+                        // onChange={(e) => setSearch(e.target.value)}
                         placeholder="Search users..."
                         className="w-full bg-zinc-950 border border-zinc-800 rounded-lg pl-10 pr-4 py-2 focus:outline-none"
                     />
                 </div>
             </div>
 
-            {/* Table */}
+            {/* --Table-- */}
             <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden">
 
                 <div className="overflow-x-auto">
@@ -169,15 +177,10 @@ export default function AdminUsersPage() {
 
                         <tbody>
                             {users.map((user, index) => (
-                                <tr
-                                    key={index}
-                                    className="border-t border-zinc-800 hover:bg-zinc-800/40"
-                                >
+                                <tr key={index} className="border-t border-zinc-800 hover:bg-zinc-800/40">
                                     <td className="px-6 py-5 font-medium">{user.name}</td>
 
-                                    <td className="px-6 py-5 text-gray-400">
-                                        {user.email}
-                                    </td>
+                                    <td className="px-6 py-5 text-gray-400">{user.email}</td>
 
                                     <td className="px-6 py-5">
                                         <span className="bg-zinc-800 text-sm px-3 py-1 rounded-full">
@@ -188,12 +191,7 @@ export default function AdminUsersPage() {
                                     <td className="px-6 py-5">{user.joined}</td>
 
                                     <td className="px-6 py-5">
-                                        <span
-                                            className={`px-3 py-1 rounded-full text-xs font-medium ${user.status === "Active"
-                                                    ? "bg-green-900/40 text-green-400"
-                                                    : "bg-red-900/40 text-red-400"
-                                                }`}
-                                        >
+                                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${user.status === "Active" ? "bg-green-900/40 text-green-400" : "bg-red-900/40 text-red-400"}`}>
                                             {user.status}
                                         </span>
                                     </td>
@@ -215,49 +213,25 @@ export default function AdminUsersPage() {
                                                     Activate
                                                 </button>
                                             )}
-
-                                            {/* <button className="text-gray-400 hover:text-white">
-                                                <MoreHorizontal size={18} />
-                                            </button> */}
                                         </div>
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
-
                     </table>
                 </div>
 
-                
-                {/* Footer */}
+                {/* --Footer-- */}
                 <div className="flex flex-col md:flex-row justify-between items-center px-6 py-4 border-t border-zinc-800">
-
-                    <p className="text-sm text-gray-400">
-                        Showing 1-5 of 12,842 users
-                    </p>
+                    <p className="text-sm text-gray-400">Showing 1-5 of 12,842 users</p>
 
                     <div className="flex gap-2 mt-3 md:mt-0">
-                        <button className="w-8 h-8 rounded bg-white text-black">
-                            1
-                        </button>
-
-                        <button className="w-8 h-8 rounded bg-zinc-800 hover:bg-zinc-700">
-                            2
-                        </button>
-
-                        <button className="w-8 h-8 rounded bg-zinc-800 hover:bg-zinc-700">
-                            3
-                        </button>
-
-                        <button className="w-8 h-8 rounded bg-zinc-800 hover:bg-zinc-700">
-                            ...
-                        </button>
-
-                        <button className="w-8 h-8 rounded bg-zinc-800 hover:bg-zinc-700">
-                            128
-                        </button>
+                        <button className="w-8 h-8 rounded bg-white text-black">1</button>
+                        <button className="w-8 h-8 rounded bg-zinc-800 hover:bg-zinc-700">2</button>
+                        <button className="w-8 h-8 rounded bg-zinc-800 hover:bg-zinc-700">3</button>
+                        <button className="w-8 h-8 rounded bg-zinc-800 hover:bg-zinc-700">...</button>
+                        <button className="w-8 h-8 rounded bg-zinc-800 hover:bg-zinc-700">128</button>
                     </div>
-
                 </div>
             </div>
         </div>

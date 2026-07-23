@@ -7,3 +7,4 @@ const AdminLayout = async ({ children }) => {
 };
 
 export default AdminLayout;
+

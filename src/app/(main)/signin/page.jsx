@@ -1,131 +1,215 @@
-'use client'
-import React, { useState } from 'react';
-import { Button, FieldError, Form, Input, Label, TextField } from '@heroui/react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Check } from 'lucide-react';
-import { FcGoogle } from 'react-icons/fc';
-import Link from 'next/link';
-import { toast } from 'react-toastify';
-import { authClient } from '@/lib/auth-client';
-import { useRouter, useSearchParams } from 'next/navigation';
+"use client";
+import React, { useState } from "react";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Button, Checkbox, FieldError, Form, Input, Label, TextField} from "@heroui/react";
+import { Check } from "lucide-react";
+import { FcGoogle } from "react-icons/fc";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { authClient } from "@/lib/auth-client";
 
 
-const SignInPage = () => {
-    const [isShowPass, setIsShowPass] = useState(false);
-
+export default function SignInPage() {
+    const [showPassword, setShowPassword] = useState(false);
+    const router = useRouter();
     const searchParams = useSearchParams();
     const redirectTo = searchParams.get("redirect") || "/";
-    console.log("Redirect after sign in:", redirectTo);
-
-    const router = useRouter();
 
     const onSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const user = Object.fromEntries(formData.entries());
-        console.log(user);
-
         const { data, error } = await authClient.signIn.email({
             email: user.email,
             password: user.password,
             rememberMe: true,
         });
-        console.log("sign in response", data, error);
 
         if (error) {
-            toast.error("Sign In failed ." + error.message);
+            toast.error(error.message);
+            return;
         }
-        else if (data) {
-            toast.success("Signed In successfull!")
-            router.push(redirectTo);
-        }
-    }
 
+        toast.success("Welcome Back 🎉");
+        router.push(redirectTo);
+    };
 
-    const handleSigninGoogle = async () => {
-        const data = await authClient.signIn.social({
+    const handleGoogleSignin = async () => {
+        await authClient.signIn.social({
             provider: "google",
         });
-        console.log("google sign in response", data);
-    }
+    };
 
 
     return (
-        <div className='container mx-auto py-20 space-y-5 px-4'>
-            <div className='text-center'>
-                <h2 className='text-3xl font-extrabold text-[#f58f95]'>Welcome Back</h2>
-                <p> Adventure with Pet Haven</p>
-            </div>
+        <section className="min-h-screen bg-linear-to-br from-zinc-950 via-zinc-900 to-black flex items-center justify-center px-5 py-10">
+            <div className="max-w-6xl w-full grid lg:grid-cols-2 overflow-hidden rounded-3xl border border-white/10 bg-zinc-900 shadow-2xl">
 
-            <div className='mx-auto border border-gray-400 shadow md:w-96 p-10 space-y-3 rounded-2xl bg-gray-400'>
-                <Form onSubmit={onSubmit} className="flex flex-col gap-4 space-y-3">
+                {/* Left Side */}
+                <div className="hidden lg:flex flex-col justify-center bg-linear-to-br from-orange-500 to-red-500 p-14 text-white">
+                    <h1 className="text-5xl font-bold leading-tight">
+                        Welcome Back 👋
+                    </h1>
 
-                    <TextField
-                        isRequired
-                        name="email"
-                        type="email"
-                        validate={(value) => {
-                            if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
-                                return "Please enter a valid email address";
-                            }
-                            return null;
-                        }}>
-                        <Label>Email</Label>
-                        <Input className="text-white" placeholder="Enter Your Email" />
-                        <FieldError />
-                    </TextField>
+                    <p className="mt-6 text-lg text-orange-100">
+                        Continue your journey with Pet Haven.
+                        Find loving homes for pets or discover your perfect companion.
+                    </p>
 
-                    <TextField
-                        isRequired
-                        className="relative"
-                        minLength={8}
-                        name="password"
-                        type={isShowPass ? "text" : "password"}
-                        validate={(value) => {
-                            if (value.length < 8) {
-                                return "Password must be at least 8 characters";
-                            }
-                            if (!/[A-Z]/.test(value)) {
-                                return "Password must contain at least one uppercase letter";
-                            }
-                            if (!/[0-9]/.test(value)) {
-                                return "Password must contain at least one number";
-                            }
-                            return null;
-                        }}>
-                        <Label>Password</Label>
-                        <Input className="text-white" placeholder="Enter your password" />
-                        <FieldError />
-                        <p className='absolute top-8 right-3 text-xl' onClick={() => setIsShowPass(!isShowPass)}>{isShowPass ? <FaEyeSlash /> : <FaEye />}</p>
-                    </TextField>
+                    <div className="mt-10 space-y-5">
+                        <div className="flex items-center gap-3">
+                            <div className="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center">
+                                🐶
+                            </div>
+                            <span>Adopt amazing pets</span>
+                        </div>
 
-                    <div className='flex justify-between items-center text-[12px]'>
-                        <h2>Remember Me</h2>
-                        <h2>Forget Password ?</h2>
+                        <div className="flex items-center gap-3">
+                            <div className="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center">
+                                ❤️
+                            </div>
+                            <span>Trusted shelters & owners</span>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <div className="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center">
+                                🏠
+                            </div>
+                            <span>Give pets a forever home</span>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Right Side */}
+                <div className="bg-zinc-950 p-5 md:p-8">
+
+                    <div className="mb-8 text-center">
+                        <h2 className="text-4xl font-bold text-white">
+                            Sign In
+                        </h2>
+
+                        <p className="mt-2 text-zinc-400">
+                            Login to continue using Pet Haven
+                        </p>
                     </div>
 
-                    <div className="flex gap-2">
-                        <Button className="w-full rounded-md bg-[#f58f95] text-white" type="submit">
-                            <Check />
+                    <Form onSubmit={onSubmit} className="space-y-5">
+
+                        <TextField
+                            isRequired
+                            name="email"
+                            type="email"
+                            className="w-full"
+                            validate={(value) => {
+                                if (
+                                    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
+                                ) {
+                                    return "Enter a valid email";
+                                }
+                                return null;
+                            }}
+                        >
+                            <Label>Email Address</Label>
+
+                            <Input
+                                placeholder="Enter your email"
+                                className="text-white w-full"
+                            />
+
+                            <FieldError />
+                        </TextField>
+
+                        <TextField
+                            isRequired
+                            name="password"
+                            className="relative w-full"
+                            type={showPassword ? "text" : "password"}
+                            validate={(value) => {
+                                if (value.length < 8)
+                                    return "Password must be at least 8 characters";
+                                if (!/[A-Z]/.test(value))
+                                    return "Must contain uppercase letter";
+                                if (!/[0-9]/.test(value))
+                                    return "Must contain one number";
+                                return null;
+                            }}
+                        >
+                            <Label>Password</Label>
+
+                            <Input
+                                placeholder="Enter your password"
+                                className="text-white w-full"
+                            />
+
+                            <FieldError />
+
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-3 top-9 text-gray-400 hover:text-white"
+                            >
+                                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            </button>
+                        </TextField>
+
+                        <div className="flex justify-between items-center text-sm text-gray-400">
+
+                            <label className="flex items-center gap-2 text-sm text-white cursor-pointer">
+                                <input
+                                    type="checkbox"
+                                    defaultChecked
+                                    className="w-4 h-4 accent-orange-500"
+                                />
+                                <span>Remember Me</span>
+                            </label>
+
+                            <Link
+                                href="/forgot-password"
+                                className="hover:text-orange-400"
+                            >
+                                Forgot Password?
+                            </Link>
+                        </div>
+
+                        <Button
+                            type="submit"
+                            className="w-full h-12 rounded-xl bg-orange-500 text-white hover:bg-orange-600 font-semibold"
+                        >
+                            <Check size={18} />
                             Sign In
                         </Button>
+                    </Form>
+
+                    <div className="relative my-8">
+
+                        <div className="border-t border-zinc-700"></div>
+
+                        <span className="absolute left-1/2 -translate-x-1/2 -top-3 bg-zinc-950 px-4 text-sm text-zinc-400">
+                            OR
+                        </span>
                     </div>
 
-                    <div className='text-center'>
-                        Or continue with
-                    </div>
-                </Form>
+                    <Button
+                        onClick={handleGoogleSignin}
+                        variant="bordered"
+                        className="w-full border-zinc-700 hover:bg-zinc-800 text-white"
+                    >
+                        <FcGoogle size={22} />
+                        Continue with Google
+                    </Button>
 
-                <div className='flex justify-center flex-col space-y-3'>
-                    <Button onClick={handleSigninGoogle} className="w-full rounded-md border border-gray-400 text-gray-900 bg-white hover:bg-[#f58f95] hover:text-white"><FcGoogle /> Continue with Google</Button>
-
-                    <h2 className='text-center'>Don`t have an account? <span><Link className='text-red-500' href={`/signup?redirect=${redirectTo}`}>Sign Up</Link></span></h2>
+                    <p className="text-center text-zinc-400">
+                        Do not have an account?{" "}
+                        <Link
+                            href={`/signup?redirect=${redirectTo}`}
+                            className="text-orange-400 hover:text-orange-300 font-semibold"
+                        >
+                            Create Account
+                        </Link>
+                    </p>
                 </div>
             </div>
-        </div>
+        </section>
     );
-};
-
-export default SignInPage;
-
-
+}

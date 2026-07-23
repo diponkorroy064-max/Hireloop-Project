@@ -1,16 +1,9 @@
 "use client";
 import React from 'react';
 import { Table, Chip, Button } from '@heroui/react';
-import {
-    Code,
-    LayoutCells,
-    Database,
-    Cloud,
-    Cpu,
-    Gear
-} from '@gravity-ui/icons';
+import { Code, LayoutCells, Database, Cloud, Cpu, Gear} from '@gravity-ui/icons';
 
-// Utility helper to format the "Applied" relative time string
+
 const formatRelativeTime = (dateString) => {
     const now = new Date();
     const appliedDate = new Date(dateString);
@@ -30,7 +23,8 @@ const formatRelativeTime = (dateString) => {
     return diffInWeeks === 1 ? "1 week ago" : `${diffInWeeks} weeks ago`;
 };
 
-// Helper mapping to choose icons and background colors based on the job title
+
+// Helper mapping to choose icons and background colors based on the job title---
 const getJobStyle = (title) => {
     const lowerTitle = title.toLowerCase();
     if (lowerTitle.includes('frontend') || lowerTitle.includes('web')) {
@@ -51,7 +45,8 @@ const getJobStyle = (title) => {
     return { icon: <Gear width="16" height="16" />, bg: 'bg-zinc-800 text-zinc-300' };
 };
 
-// Helper mapping for the status badges matching your screenshot colors
+
+// Helper mapping for the status badges matching your screenshot colors---
 const getStatusChip = (status = "Applied") => {
     const normalized = status.toLowerCase();
     switch (normalized) {
@@ -69,6 +64,7 @@ const getStatusChip = (status = "Applied") => {
             return <Chip variant="bordered" className="border-zinc-600 text-zinc-100 text-xs font-medium">{status}</Chip>;
     }
 };
+
 
 const ApplicationsTable = ({ jobs }) => {
     return (

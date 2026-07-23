@@ -1,11 +1,4 @@
-import {
-    Users,
-    Briefcase,
-    FileText,
-    CreditCard,
-    DollarSign,
-    TrendingUp,
-} from "lucide-react";
+import { Users, Briefcase, FileText, CreditCard, DollarSign, TrendingUp} from "lucide-react";
 
 const stats = [
     {
