@@ -8,8 +8,11 @@ export const getUserSession = async () => {
     const session = await auth.api.getSession({
         headers: await headers()
     })
+    // console.log("SESSION", session);
     return session?.user || null;
 };
+
+
 
 export const getUserToken = async () => {
     const session = await auth.api.getSession({
@@ -17,6 +20,7 @@ export const getUserToken = async () => {
     })
     return session?.session?.token || null;
 }
+
 
 export const requireRole = async (role) => {
     const user = await getUserSession();

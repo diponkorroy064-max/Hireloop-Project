@@ -1,6 +1,7 @@
 'use client';
-import React, { useState } from 'react';
-import { Button, FieldError, Form, Input, Label, TextField, Radio, RadioGroup } from "@heroui/react";
+
+import React, { useState, Suspense } from 'react';
+import { Button, FieldError, Form, Input, Label, TextField } from "@heroui/react";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Check, User, Briefcase, Sparkles, ShieldCheck } from 'lucide-react';
 import { FcGoogle } from 'react-icons/fc';
@@ -9,8 +10,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { authClient } from '@/lib/auth-client';
 import { toast } from 'react-toastify';
 
-
-const SignUpPage = () => {
+const SignUpForm = () => {
     const [isShowPass, setIsShowPass] = useState(false);
     const [isShowConfirmPass, setIsShowConfirmPass] = useState(false);
     const [role, setRole] = useState("seeker");
@@ -24,6 +24,7 @@ const SignUpPage = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
+
         const formData = new FormData(e.currentTarget);
         const user = Object.fromEntries(formData.entries());
 
@@ -32,6 +33,7 @@ const SignUpPage = () => {
             setLoading(false);
             return;
         }
+
         const plan = role === "seeker" ? "seeker_free" : "recruiter_free";
 
         try {
@@ -58,9 +60,15 @@ const SignUpPage = () => {
     };
 
     const handleSigninGoogle = async () => {
+        const plan = role === "seeker" ? "seeker_free" : "recruiter_free";
         try {
             await authClient.signIn.social({
                 provider: "google",
+                callbackURL: redirectTo,
+                additionalData: {
+                    role: role,
+                    plan: plan,
+                },
             });
         } catch (err) {
             toast.error("Google sign-in failed");
@@ -127,13 +135,13 @@ const SignUpPage = () => {
                         </div>
 
                         <Form onSubmit={onSubmit} className="flex flex-col gap-4">
+
                             {/* ROLE SELECTION */}
                             <div className="flex flex-col gap-1.5">
                                 <Label className="text-xs font-semibold text-zinc-300 uppercase tracking-wider">
                                     I want to join as a
                                 </Label>
 
-                                {/* Hidden input to ensure FormData(e.currentTarget) catches "role" */}
                                 <input type="hidden" name="role" value={role} />
 
                                 <div className="grid grid-cols-2 gap-3 pt-1">
@@ -143,8 +151,7 @@ const SignUpPage = () => {
                                         className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${role === 'seeker'
                                             ? 'border-blue-500 bg-blue-500/10 text-white'
                                             : 'border-zinc-800 bg-zinc-950/40 text-zinc-400 hover:border-zinc-700'
-                                            }`}
-                                    >
+                                            }`}>
                                         <div className="flex items-center gap-2 text-sm font-medium">
                                             <User size={16} className={role === 'seeker' ? 'text-blue-400' : 'text-zinc-400'} />
                                             Job Seeker
@@ -158,8 +165,7 @@ const SignUpPage = () => {
                                         className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${role === 'recruiter'
                                             ? 'border-blue-500 bg-blue-500/10 text-white'
                                             : 'border-zinc-800 bg-zinc-950/40 text-zinc-400 hover:border-zinc-700'
-                                            }`}
-                                    >
+                                            }`}>
                                         <div className="flex items-center gap-2 text-sm font-medium">
                                             <Briefcase size={16} className={role === 'recruiter' ? 'text-blue-400' : 'text-zinc-400'} />
                                             Recruiter
@@ -211,7 +217,6 @@ const SignUpPage = () => {
                                     name="password"
                                     type={isShowPass ? "text" : "password"}
                                     validate={(val) => {
-                                        setPasswordValue(val);
                                         if (val.length < 8) return "Min 8 characters";
                                         if (!/[A-Z]/.test(val)) return "Needs uppercase letter";
                                         if (!/[a-z]/.test(val)) return "Needs lowercase letter";
@@ -221,8 +226,10 @@ const SignUpPage = () => {
                                     <Label className="text-xs text-zinc-300 font-medium">Password</Label>
                                     <div className="relative mt-1">
                                         <Input
+                                            onChange={(e) => setPasswordValue(e.target.value)}
                                             className="w-full rounded-xl border border-zinc-800 bg-zinc-950/60 pl-3.5 pr-10 py-2.5 text-sm text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none transition-colors"
-                                            placeholder="••••••••" />
+                                            placeholder="••••••••"
+                                        />
                                         <button
                                             type="button"
                                             onClick={() => setIsShowPass(!isShowPass)}
@@ -243,7 +250,8 @@ const SignUpPage = () => {
                                     <div className="relative mt-1">
                                         <Input
                                             className="w-full rounded-xl border border-zinc-800 bg-zinc-950/60 pl-3.5 pr-10 py-2.5 text-sm text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none transition-colors"
-                                            placeholder="••••••••" />
+                                            placeholder="••••••••"
+                                        />
                                         <button
                                             type="button"
                                             onClick={() => setIsShowConfirmPass(!isShowConfirmPass)}
@@ -302,4 +310,10 @@ const SignUpPage = () => {
     );
 };
 
-export default SignUpPage;
+export default function SignUpPage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen bg-zinc-950" />}>
+            <SignUpForm />
+        </Suspense>
+    );
+}

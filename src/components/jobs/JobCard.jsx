@@ -16,7 +16,7 @@ export default function JobCard({ job }) {
 
 
     const salaryRange = job.minSalary && job.maxSalary
-        ? `$${formatSalary(job.minSalary)}–$${formatSalary(job.maxSalary)} / year`
+        ? `$${formatSalary(job.minSalary)}-$${formatSalary(job.maxSalary)} / year`
         : "Salary Negociable";
 
     // Safely extract the ID string depending on your MongoDB data hydration setup

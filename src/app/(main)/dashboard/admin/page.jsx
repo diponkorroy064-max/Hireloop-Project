@@ -68,6 +68,7 @@ const transactions = [
     },
 ];
 
+
 export default function AdminDashboard() {
     return (
         <div className="min-h-screen bg-zinc-950 text-white p-6">
@@ -91,6 +92,7 @@ export default function AdminDashboard() {
                 </div>
             </div>
 
+            
             {/* Stats */}
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-5 mb-8">
                 {stats.map((item, index) => {
@@ -99,8 +101,7 @@ export default function AdminDashboard() {
                     return (
                         <div
                             key={index}
-                            className="bg-zinc-900 rounded-xl p-5 border border-zinc-800"
-                        >
+                            className="bg-zinc-900 rounded-xl p-5 border border-zinc-800">
                             <div className="flex justify-between items-center mb-5">
                                 <div className="w-10 h-10 rounded-lg bg-zinc-800 flex items-center justify-center">
                                     <Icon size={18} />
@@ -148,21 +149,17 @@ export default function AdminDashboard() {
                     </div>
                 </div>
 
+                
                 {/* Line Chart Placeholder */}
                 <div className="bg-zinc-900 rounded-xl p-6 border border-zinc-800">
                     <h2 className="font-semibold mb-4">New Users (30d)</h2>
 
                     <div className="relative h-64 flex items-center justify-center">
-                        <svg
-                            viewBox="0 0 300 180"
-                            className="w-full h-full"
-                            fill="none"
-                        >
+                        <svg viewBox="0 0 300 180" className="w-full h-full" fill="none">
                             <path
                                 d="M20 140 C80 120 90 50 150 90 S220 160 280 40"
                                 stroke="white"
-                                strokeWidth="3"
-                            />
+                                strokeWidth="3"/>
 
                             <circle cx="280" cy="40" r="5" fill="white" />
                         </svg>
@@ -174,6 +171,7 @@ export default function AdminDashboard() {
                 </div>
             </div>
 
+            
             {/* Table */}
             <div className="bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden">
                 <div className="flex justify-between items-center px-6 py-5 border-b border-zinc-800">

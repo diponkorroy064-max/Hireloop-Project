@@ -2,6 +2,7 @@ import { getUserToken } from "./session";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
+
 export const authHeader = async(path) => {
     const token = await getUserToken()
     const header = token ? {
@@ -11,16 +12,38 @@ export const authHeader = async(path) => {
 }
 
 
-export const protectedFetch = async(path) => {
-    const res = await fetch(`${baseUrl}${path}`, 
-        {
-            headers: await authHeader()
+export const protectedFetch = async (path) => {
+    const url = `${baseUrl || ''}${path}`;
+
+    try {
+        const res = await fetch(url, {
+            headers: await authHeader(),
+            cache: 'no-store', 
+        });
+
+        if (!res.ok) {
+            console.error(`Fetch error [${res.status}]: ${res.statusText} at ${url}`);
+            return null; 
         }
-    );
+
+        return await res.json();
+    } catch (error) {
+        console.error(`Network or JSON parsing error for ${url}:`, error);
+        return null;
+    }
+};
+
+
+// export const protectedFetch = async(path) => {
+//     const res = await fetch(`${baseUrl}${path}`, 
+//         {
+//             headers: await authHeader()
+//         }
+//     );
 
     // handle 401, 404, 403---
-    return res.json();
-}
+    // return res.json();
+// }
 
 
 export const ServerMutation = async (path, data, method = 'POST') => {

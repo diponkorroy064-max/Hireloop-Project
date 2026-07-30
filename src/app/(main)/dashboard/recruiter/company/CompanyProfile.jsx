@@ -4,6 +4,7 @@ import { Form, Fieldset, TextField, TextArea, Label, Input, FieldError, Select, 
 import { ArrowUpToLine, Globe, Factory, ArrowRight, Pencil, ChevronDown } from '@gravity-ui/icons';
 import { createCompany } from '@/lib/actions/companies';
 import { toast } from 'react-toastify';
+import Image from 'next/image';
 
 
 // Layout Shared Style Constants matching your design image---
@@ -145,15 +146,14 @@ export default function CompanyProfile({ recruiter, recruiterCompany }) {
                 </div>
                 <Button
                     onPress={startRegistration}
-                    className="bg-white text-black font-semibold hover:bg-zinc-200 rounded-lg px-6 h-11 transition-all"
-                >
+                    className="bg-white text-black font-semibold hover:bg-zinc-200 rounded-lg px-6 h-11 transition-all">
                     Register Company <ArrowRight size={16} className="ml-1" />
                 </Button>
             </div>
         );
     }
 
-    // --- SUB-VIEW 2: Render Presentation Dashboard view mode ---
+    // ---SUB-VIEW 2:Render Presentation Dashboard view mode---
     if (company && !isEditing) {
         const getStatusStyles = (status) => {
             switch (status) {
@@ -169,7 +169,7 @@ export default function CompanyProfile({ recruiter, recruiterCompany }) {
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-zinc-900 pb-6">
                     <div className="flex items-center gap-4">
                         {company.logo ? (
-                            <img src={company.logo} alt={company.name} className="w-16 h-16 rounded-xl object-contain bg-zinc-900 p-2 border border-zinc-800" />
+                            <Image width={10} height={10} src={company.logo} alt={company.name} className="w-16 h-16 rounded-xl object-contain bg-zinc-900 p-2 border border-zinc-800" />
                         ) : (
                             <div className="w-16 h-16 rounded-xl bg-zinc-900 flex items-center justify-center border border-zinc-800">
                                 <Factory size={24} className="text-zinc-600" />
@@ -313,7 +313,7 @@ export default function CompanyProfile({ recruiter, recruiterCompany }) {
                                         className="hidden"
                                     />
                                     {logoUrl ? (
-                                        <img src={logoUrl} alt="Logo Preview" className="w-full h-full object-cover" />
+                                        <Image width={10} height={10}src={logoUrl} alt="Logo Preview" className="w-full h-full object-cover" />
                                     ) : (
                                         <ArrowUpToLine size={18} className="text-zinc-400 group-hover:text-zinc-200 transition-colors" />
                                     )}

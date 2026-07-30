@@ -14,9 +14,10 @@ export default function Navbar() {
     // console.log("data from navbar", data);
     const user = data?.user;
     // console.log("user in  navbar", user);
-
+    
 
     const navLinks = [
+        { name: "Home", href: "/" },
         { name: "Browse Jobs", href: "/jobs" },
         { name: "Company", href: "/companies" },
         { name: "Pricing", href: "/plan" },

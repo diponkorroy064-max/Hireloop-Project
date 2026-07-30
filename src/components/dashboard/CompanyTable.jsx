@@ -53,6 +53,7 @@ const CompanyTable = ({ companies }) => {
         return name ? name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'CO';
     };
 
+    
     return (
         <div className=" bg-[#121214] text-neutral-200 p-6 rounded-lg">
             <Table className="bg-transparent border-none">

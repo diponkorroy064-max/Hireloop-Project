@@ -1,16 +1,15 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Button, Checkbox, FieldError, Form, Input, Label, TextField} from "@heroui/react";
+import { Button, Checkbox, FieldError, Form, Input, Label, TextField } from "@heroui/react";
 import { Check } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { authClient } from "@/lib/auth-client";
 
-
-export default function SignInPage() {
+function SignInContent() {
     const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -38,9 +37,9 @@ export default function SignInPage() {
     const handleGoogleSignin = async () => {
         await authClient.signIn.social({
             provider: "google",
+            callbackURL: redirectTo,
         });
     };
-
 
     return (
         <section className="min-h-screen bg-linear-to-br from-zinc-950 via-zinc-900 to-black flex items-center justify-center px-5 py-10">
@@ -199,7 +198,7 @@ export default function SignInPage() {
                         Continue with Google
                     </Button>
 
-                    <p className="text-center text-zinc-400">
+                    <p className="text-center text-zinc-400 mt-6">
                         Do not have an account?{" "}
                         <Link
                             href={`/signup?redirect=${redirectTo}`}
@@ -211,5 +210,13 @@ export default function SignInPage() {
                 </div>
             </div>
         </section>
+    );
+}
+
+export default function SignInPage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen bg-zinc-950" />}>
+            <SignInContent />
+        </Suspense>
     );
 }

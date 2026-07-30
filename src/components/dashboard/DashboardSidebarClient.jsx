@@ -5,6 +5,7 @@ import { Bell, Bookmark, Briefcase, CreditCard, Envelope, FileText, Gear, House,
 import { Building, Users } from "lucide-react";
 import { Button, Drawer } from "@heroui/react";
 
+
 export default function DashboardSidebarClient({ role }) {
     const pathname = usePathname();
 
@@ -17,7 +18,6 @@ export default function DashboardSidebarClient({ role }) {
         { icon: Person, href: "/profile", label: "Profile" },
         { icon: Gear, href: "/settings", label: "Settings" },
     ];
-
     const seekerNavLinks = [
         { icon: House, href: "/dashboard/seeker", label: "Dashboard" },
         { icon: Magnifier, href: "/dashboard/seeker/jobs", label: "Jobs" },
@@ -50,9 +50,7 @@ export default function DashboardSidebarClient({ role }) {
                 console.log(`Checking if ${item.href} is active for role ${role}:`, isActive);
 
                 return (
-                    <Link
-                        key={item.label}
-                        href={item.href}
+                    <Link  key={item.label}  href={item.href}
                         className={`flex items-center gap-3 rounded-xl px-4 py-3 transition-all duration-200 ${isActive ? "bg-white text-black font-semibold shadow" : "text-gray-400 hover:bg-zinc-800 hover:text-white"}`}>
                         
                         <item.icon className={`size-5 ${isActive ? "text-black" : "text-gray-400"}`}/>
