@@ -1,36 +1,262 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🚀 HireLoop Projects
 
-## Getting Started
+HireLoop is a modern full-stack job portal that connects job seekers and recruiters. It provides a seamless platform for discovering jobs, managing companies, submitting applications, and tracking recruitment activities with a beautiful and responsive user interface.
 
-First, run the development server:
+---
+
+## 🌐 Live Demo
+
+🔗 **Live Site:** https://hireloop-client-five.vercel.app
+
+---
+
+## 🔗 Server Repository
+
+📂 **Server Repository:** https://github.com/your-username/hireloop-server
+
+---
+
+## 💻 Server Repository
+
+📂 **Server Repository:** https://github.com/diponkorroy064-max/Hireloop-Server
+
+---
+
+# 📖 Project Overview
+
+HireLoop is designed to simplify the hiring process by providing different dashboards for Job Seekers, Recruiters, and Administrators.
+
+The application allows recruiters to publish job opportunities, manage their companies, and review applications. Job seekers can search jobs, apply for positions, and track their applications. Administrators can monitor users, companies, and maintain the platform.
+
+---
+
+# ✨ Features
+
+### 🔐 Authentication
+- Email & Password Authentication
+- Google OAuth Login
+- Better Auth Integration
+- Protected Routes
+- Role-based Authorization
+- Persistent Sessions
+
+---
+
+### 👤 Job Seeker Features
+
+- Browse all jobs
+- Search and filter jobs
+- View job details
+- Apply for jobs
+- Track applied jobs
+- Responsive dashboard
+
+---
+
+### 🏢 Recruiter Features
+
+- Company Management
+- Add Company
+- Update Company
+- Create Job Posts
+- Edit Jobs
+- Manage Applicants
+- Company Dashboard
+
+---
+
+### 🛠 Admin Features
+
+- Manage Users
+- Manage Companies
+- Approve Companies
+- Suspend Users
+- Platform Overview Dashboard
+
+---
+
+### 📊 Dashboard
+
+- Role-based Dashboard
+- Analytics Cards
+- Company Statistics
+- Job Statistics
+- User Statistics
+
+---
+
+### 🔎 Search & Filter
+
+- Search Jobs
+- Search Companies
+- Filter by Category
+- Filter by Location
+- Remote Job Filter
+- Job Type Filter
+
+---
+
+### 🎨 UI Features
+
+- Fully Responsive Design
+- Dark Theme
+- Loading States
+- Beautiful Cards
+- Toast Notifications
+- Form Validation
+- Image Upload
+- Pagination
+- Modern Dashboard
+
+---
+
+# 🛠 Tech Stack
+
+## Frontend
+
+- Next.js 16
+- React 19
+- Tailwind CSS
+- HeroUI
+- Lucide React
+- React Icons
+- React Toastify
+- Better Auth
+- Axios
+- Framer Motion
+
+---
+
+## Backend
+
+- Node.js
+- Express.js
+- MongoDB
+- Better Auth
+- JWT Authentication
+
+---
+
+# 📂 Folder Structure
+
+```
+src
+│
+├── app
+├── components
+├── hooks
+├── lib
+│   ├── api
+│   ├── auth
+│   ├── core
+│
+├── providers
+├── utils
+└── middleware.js
+```
+
+---
+
+# ⚙️ Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/diponkorroy064-max/Hireloop-Project
+```
+
+Go to the project directory
+
+```bash
+cd hireloop-client
+```
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Create a `.env.local`
+
+```env
+NEXT_PUBLIC_BASE_URL=http://localhost:8000
+
+NEXT_PUBLIC_IMAGE_UPLOAD_API=YOUR_IMGBB_KEY
+
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=YOUR_STRIPE_KEY
+
+BETTER_AUTH_URL=http://localhost:3000
+
+BETTER_AUTH_SECRET=YOUR_SECRET
+
+GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
+
+GOOGLE_CLIENT_SECRET=YOUR_GOOGLE_CLIENT_SECRET
+```
+
+Run the project
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+# 🔒 Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Description |
+|----------|-------------|
+| NEXT_PUBLIC_BASE_URL | Backend API URL |
+| BETTER_AUTH_SECRET | Better Auth Secret |
+| BETTER_AUTH_URL | Better Auth URL |
+| GOOGLE_CLIENT_ID | Google OAuth Client ID |
+| GOOGLE_CLIENT_SECRET | Google OAuth Client Secret |
+| NEXT_PUBLIC_IMAGE_UPLOAD_API | ImgBB API Key |
+| NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY | Stripe Publishable Key |
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+# 🚀 Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Client
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Vercel
 
-## Deploy on Vercel
+Server
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Render / Railway / VPS
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Database
+
+- MongoDB Atlas
+
+---
+
+# 📌 Future Improvements
+
+- Email Verification
+- Resume Upload
+- Saved Jobs
+- Real-time Notifications
+- Recruiter Analytics
+- AI Job Recommendations
+- Interview Scheduling
+- Chat System
+- Payment History
+- Multi-language Support
+
+---
+
+# 👨‍💻 Author
+
+**Diponkor Roy**
+
+- GitHub: https://github.com/diponkorroy064-max
+- LinkedIn: https://www.linkedin.com/in/diponkorroy21010504
+
+---
+
+# ⭐ Support
+
+If you like this project, consider giving it a ⭐ on GitHub!
