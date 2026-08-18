@@ -5,7 +5,7 @@ import React from 'react';
 
 export default async function CompaniesPage() {
     const companies = await getCompanies();
-    // console.log("Fetched companies:", companies);
+    console.log("Fetched companies:", companies);
 
     if (!companies) {
         return (

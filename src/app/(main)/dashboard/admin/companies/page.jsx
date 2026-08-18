@@ -8,9 +8,9 @@ const AdminCompaniesPage = async () => {
     // console.log(companies);
 
     return (
-        <div className="min-h-screen bg-[#0d0d0f] p-8 text-neutral-100">
-            <div className="max-w-7xl mx-auto space-y-6">
-                <div>
+        <div className="min-h-screen bg-[#0d0d0f] text-neutral-100">
+            <div className="max-w-7xl mx-auto">
+                <div className='px-8 py-4'>
                     <h2 className="text-xl font-semibold tracking-tight text-neutral-200">
                         Companies for review
                     </h2>

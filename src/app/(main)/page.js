@@ -8,7 +8,7 @@ import WorldSection from "@/components/home/WorldSection";
 
 export default function Home() {
   return (
-    <div className="container mx-auto bg-zinc-50 font-sans dark:bg-black">
+    <div className="bg-zinc-50 font-sans dark:bg-black">
       <HeroSection></HeroSection>
       <Stats></Stats>
       <JobDiscoverySection></JobDiscoverySection>

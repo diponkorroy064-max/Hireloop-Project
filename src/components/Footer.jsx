@@ -4,8 +4,8 @@ import { LogoFacebook, LogoLinkedin, LogoGithub } from "@gravity-ui/icons";
 
 const Footer = () => {   
     return (
-        <footer className="container mx-auto border-t border-white/10 bg-black text-white">
-            <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+        <footer className="border-t border-white/10 bg-black text-white">
+            <div className="mx-auto max-w-7xl lg:max-w-full px-6 py-16 lg:px-8">
                 {/* TOP SECTION */}
                 <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
                     {/* LEFT */}

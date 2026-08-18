@@ -20,6 +20,8 @@ export default function Navbar() {
         { name: "Home", href: "/" },
         { name: "Browse Jobs", href: "/jobs" },
         { name: "Company", href: "/companies" },
+        { name: "About", href: "/about" },
+        { name: "Contact", href: "/contact" },
         { name: "Pricing", href: "/plan" },
     ];
 
@@ -40,8 +42,8 @@ export default function Navbar() {
 
 
     return (
-        <header className="container mx-auto w-full py-4 px-4 md:px-8 bg-black">
-            <nav className="mx-auto max-w-7xl">
+        <header className="w-full py-4 px-4 md:px-8 bg-black">
+            <nav className="mx-auto max-w-7xl lg:max-w-full">
                 <div className="flex items-center justify-between rounded-2xl border border-gray-400 bg-gray-900 px-6 py-4 backdrop-blur-md shadow-lg">
 
                     {/* Logo */}

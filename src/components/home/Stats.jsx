@@ -33,7 +33,7 @@ export default function Stats() {
 
 
     return (
-        <section className="container mx-auto relative overflow-hidden bg-black py-10 text-white">
+        <section className="relative overflow-hidden bg-gray-900 py-10 md:py-15 text-white">
             {/* Background Globe */}
             <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-90" style={{ backgroundImage: "url('/images/globe.png')" }} />
             
@@ -46,9 +46,9 @@ export default function Stats() {
             {/* Content */}
             <div className="relative z-10 mx-auto max-w-7xl px-6">
                 {/* Heading */}
-                <div className="mx-auto max-w-3xl text-center">
-                    <h2 className="text-2xl md:text-4xl font-medium leading-relaxed text-white/90">
-                        Assisting over 15,000 job seekers
+                <div className="mx-auto max-w-3xl md:max-w-5xl text-center">
+                    <h2 className="text-2xl md:text-4xl font-medium leading-relaxed text-white/90 mb-10">
+                        <span className="text-3xl md:text-5xl font-extrabold">Assisting over 15,000 job seekers</span>
                         <br />
                         find their dream positions.
                     </h2>
@@ -76,7 +76,7 @@ export default function Stats() {
 
                 
                 {/* Stats Cards */}
-                <div className="mt-20 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+                <div className="mt-15 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                     {stats.map((stat) => (
                         <div
                             key={stat.id}

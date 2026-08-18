@@ -7,8 +7,7 @@ export default function ThemeProvider({ children }) {
         <NextThemesProvider
             attribute="data-theme"
             defaultTheme="light"
-            enableSystem={false}
-        >
+            enableSystem={false}>
             {children}
         </NextThemesProvider>
     );

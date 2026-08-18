@@ -61,6 +61,13 @@ export const ServerMutation = async (path, data, method = 'POST') => {
 
 export const ServerFetch = async (path) => {
     const res = await fetch(`${baseUrl}${path}`);
+
+    if (!res.ok) {
+        throw new Error(
+            `Request failed: ${res.status} ${res.statusText}`
+        );
+    }
+
     return res.json();
 };
 

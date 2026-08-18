@@ -4,7 +4,7 @@ import { getJobs } from "@/lib/api/jobs";
 
 export default async function JobsPage({ searchParams }) {
     const filters = await searchParams;
-    console.log("searchQuery", filters);
+    // console.log("searchQuery", filters);
 
     const filterObj = {
         ...filters,
@@ -13,11 +13,11 @@ export default async function JobsPage({ searchParams }) {
     const querySearch = new URLSearchParams(filters);
     const queryString = querySearch.toString();
     // console.log("query string", queryString);
-    console.log("query search", querySearch);
+    // console.log("query search", querySearch);
 
     // Fetched server-side on the initial request---
     const {jobs, total} = await getJobs(queryString);
-    console.log("Fetched jobs:", jobs);
+    // console.log("Fetched jobs:", jobs);
 
 
     return (

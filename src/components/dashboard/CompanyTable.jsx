@@ -55,8 +55,8 @@ const CompanyTable = ({ companies }) => {
 
     
     return (
-        <div className=" bg-[#121214] text-neutral-200 p-6 rounded-lg">
-            <Table className="bg-transparent border-none">
+        <div className="text-neutral-200 p-6">
+            <Table className="bg-transparent">
                 <Table.ScrollContainer>
                     <Table.Content aria-label="Company approval management table">
                         <Table.Header>
@@ -65,9 +65,9 @@ const CompanyTable = ({ companies }) => {
                                 Company Name
                             </Table.Column>
 
-                            <Table.Column className="text-neutral-400 font-medium pb-4 border-b border-neutral-800">
+                            {/* <Table.Column className="text-neutral-400 font-medium pb-4 border-b border-neutral-800">
                                 Recruiter Email
-                            </Table.Column>
+                            </Table.Column> */}
 
                             <Table.Column className="text-neutral-400 font-medium pb-4 border-b border-neutral-800">
                                 Industry
@@ -77,7 +77,7 @@ const CompanyTable = ({ companies }) => {
                                 Jobs Count
                             </Table.Column>
 
-                            <Table.Column className="text-neutral-400 font-medium pb-4 border-b border-neutral-800">
+                            <Table.Column className="text-neutral-400 font-medium pb-4 border-b border-neutral-800 text-center">
                                 Status
                             </Table.Column>
 
@@ -102,14 +102,18 @@ const CompanyTable = ({ companies }) => {
                                                 <div className="w-9 h-9 flex items-center justify-center bg-neutral-800 text-neutral-300 rounded font-semibold text-sm tracking-wider">
                                                     {getInitials(company.name)}
                                                 </div>
-                                                <span className="font-medium text-neutral-200">{company.name}</span>
+
+                                                <div>
+                                                    <p className="font-medium text-neutral-200">{company.name}</p>
+                                                    <p className="text-neutral-400">{company.recruiterEmail || `recruiter@${company.name.toLowerCase().replace(/\s+/g, '')}.com`}</p>
+                                               </div>
                                             </div>
                                         </Table.Cell>
 
                                         {/* Recruiter Email Placeholder */}
-                                        <Table.Cell className="py-4 align-middle text-neutral-400">
+                                        {/* <Table.Cell className="py-4 align-middle text-neutral-400">
                                             {company.recruiterEmail || `recruiter@${company.name.toLowerCase().replace(/\s+/g, '')}.com`}
-                                        </Table.Cell>
+                                        </Table.Cell> */}
 
                                         {/* Industry Pill */}
                                         <Table.Cell className="py-4 align-middle">
@@ -157,8 +161,7 @@ const CompanyTable = ({ companies }) => {
                                                         size="sm"
                                                         variant="light"
                                                         onClick={() => handleReject(companyId)}
-                                                        className="bg-rose-950/20 hover:bg-rose-900/40 text-rose-500 border border-rose-900/40 rounded px-3 py-1 text-xs font-medium transition-colors"
-                                                    >
+                                                        className="bg-rose-950/20 hover:bg-rose-900/40 text-rose-500 border border-rose-900/40 rounded px-3 py-1 text-xs font-medium transition-colors">
                                                         Reject
                                                     </Button>
                                                 )}
