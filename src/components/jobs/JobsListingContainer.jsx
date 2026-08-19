@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import JobCard from "@/components/jobs/JobCard";
 import JobFilters from "@/components/jobs/JobFilters";
 import { useRouter } from "next/navigation";
@@ -8,23 +8,23 @@ import { PaginationBasic } from "../pagination/PaginationBasic";
 
 export default function JobListingContainer({ jobs, filters, total }) {
     const [searchQuery, setSearchQuery] = useState(filters.search);
-    const [selectedType, setSelectedType] = useState( filters.jobType || "all");
+    const [selectedType, setSelectedType] = useState(filters.jobType || "all");
     const [selectedCategory, setSelectedCategory] = useState(filters.jobCategory || "all");
     const [isRemoteOnly, setIsRemoteOnly] = useState(filters.isRemote || false);
     const router = useRouter();
-    
+
 
     const [page, setPage] = useState(filters.page || 1);
     const totalItems = total;
 
-    useEffect(() => { 
+    useEffect(() => {
         const sp = new URLSearchParams();
         if (searchQuery) {
             sp.set("search", searchQuery);
         }
 
         if (selectedType !== "all") {
-            sp.set("jobType", selectedType); 
+            sp.set("jobType", selectedType);
         };
 
         if (selectedCategory !== "all") {
@@ -45,41 +45,16 @@ export default function JobListingContainer({ jobs, filters, total }) {
     }, [searchQuery, router, selectedCategory, isRemoteOnly, selectedType, page]);
 
 
-    // Compute matched filter rows instantly----
-    // const filteredJobs = useMemo(() => {
-    //     return initialJobs.filter((job) => {
-    //         const matchesSearch =
-    //             job.jobTitle?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    //             job.companyName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    //             job.requirements?.toLowerCase().includes(searchQuery.toLowerCase());
-
-    //         const matchesType = selectedType === "all" || job.jobType === selectedType;
-    //         const matchesCategory = selectedCategory === "all" || job.jobCategory === selectedCategory;
-    //         const matchesRemote = !isRemoteOnly || job.isRemote === true;
-
-    //         return matchesSearch && matchesType && matchesCategory && matchesRemote;
-    //     });
-    // }, [searchQuery, selectedType, selectedCategory, isRemoteOnly, initialJobs]);
-
-
     return (
         <>
-            <JobFilters
-                searchQuery={searchQuery}
-                setSearchQuery={setSearchQuery}
-                selectedType={selectedType}
-                setSelectedType={setSelectedType}
-                selectedCategory={selectedCategory}
-                setSelectedCategory={setSelectedCategory}
-                isRemoteOnly={isRemoteOnly}
-                setIsRemoteOnly={setIsRemoteOnly}/>
+            <JobFilters searchQuery={searchQuery} setSearchQuery={setSearchQuery} selectedType={selectedType} setSelectedType={setSelectedType} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} isRemoteOnly={isRemoteOnly} setIsRemoteOnly={setIsRemoteOnly} />
 
 
             <div className="max-w-7xl mx-auto mb-6 text-sm text-zinc-500">
                 Showing {jobs?.length} position{jobs?.length !== 1 && "s"}
             </div>
 
-            
+
             {jobs?.length > 0 ? (
                 <>
                     <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center mb-10">
@@ -87,7 +62,7 @@ export default function JobListingContainer({ jobs, filters, total }) {
                             <JobCard key={jobItem._id?.$oid || jobItem._id} job={jobItem} />
                         ))}
                     </div>
-
+                    
                     <PaginationBasic totalItems={totalItems} page={page} setPage={setPage} />
                 </>
             ) : (

@@ -18,7 +18,7 @@ export default async function JobsPage({ searchParams }) {
     // Fetched server-side on the initial request---
     const {jobs, total} = await getJobs(queryString);
     // console.log("Fetched jobs:", jobs);
-
+    
 
     return (
         <div className="w-full min-h-screen bg-zinc-950 p-6 md:p-12 text-white">

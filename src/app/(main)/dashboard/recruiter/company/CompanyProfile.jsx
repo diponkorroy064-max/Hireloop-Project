@@ -163,6 +163,7 @@ export default function CompanyProfile({ recruiter, recruiterCompany }) {
             }
         };
 
+
         return (
             <div className="max-w-4xl mx-auto my-8 bg-zinc-950 border border-zinc-900 rounded-xl p-8 space-y-8">
                 {/* Header Action Grid area */}
@@ -190,8 +191,7 @@ export default function CompanyProfile({ recruiter, recruiterCompany }) {
                     <Button
                         onPress={startEditing}
                         variant="bordered"
-                        className="border-zinc-800 text-zinc-300 hover:bg-zinc-900 rounded-lg px-4 font-medium h-10 flex items-center gap-2"
-                    >
+                        className="border-zinc-800 text-zinc-300 hover:bg-zinc-900 rounded-lg px-4 font-medium h-10 flex items-center gap-2">
                         <Pencil size={14} /> Edit Profile
                     </Button>
                 </div>
@@ -226,7 +226,7 @@ export default function CompanyProfile({ recruiter, recruiterCompany }) {
     }
 
 
-    // --- SUB-VIEW 3: Form Editing & Registration View Structure ---
+    // --SUB-VIEW 3: Form Editing & Registration View Structure---
     return (
         <div className="max-w-3xl mx-auto my-8 bg-zinc-950 p-8 border border-zinc-900 rounded-xl">
             <Form onSubmit={handleSubmit} className="space-y-8" validationErrors={errors} validationBehavior="aria">

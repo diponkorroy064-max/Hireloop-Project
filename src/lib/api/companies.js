@@ -11,8 +11,8 @@ export const getLoggedInRecruiterCompany = async () => {
 };
 
 export const getCompanies = async () => {
-    // return ServerFetch(`/api/companies`);
-    return protectedFetch(`/api/companies`);
+    return ServerFetch(`/api/companies`);
+    // return protectedFetch(`/api/companies`);
     // return protectedFetch(`/api/companies2`);
 };
 
