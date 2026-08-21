@@ -1,37 +1,32 @@
 import JobListingContainer from "@/components/jobs/JobsListingContainer";
 import { getJobs } from "@/lib/api/jobs";
 
-
 export default async function JobsPage({ searchParams }) {
     const filters = await searchParams;
-    // console.log("searchQuery", filters);
 
     const filterObj = {
         ...filters,
-        isRemote: filters.isRemote === "true" ? true : false,
+        isRemote: filters.isRemote === "true",
     };
     const querySearch = new URLSearchParams(filters);
     const queryString = querySearch.toString();
-    // console.log("query string", queryString);
-    // console.log("query search", querySearch);
 
-    // Fetched server-side on the initial request---
-    const {jobs, total} = await getJobs(queryString);
-    // console.log("Fetched jobs:", jobs);
-    
+    // Fetched server-side on the initial request
+    const { jobs, total } = await getJobs(queryString);
 
     return (
-        <div className="w-full min-h-screen bg-zinc-950 p-6 md:p-12 text-white">
+        <div className="w-full min-h-screen bg-gray-50 dark:bg-zinc-950 p-6 md:p-12 text-gray-900 dark:text-white transition-colors duration-300">
             <div className="max-w-7xl mx-auto mb-10">
-                <h1 className="text-4xl font-bold tracking-tight">Open Positions</h1>
-                <p className="text-zinc-400 mt-2">Discover your next engineering challenge.</p>
+                <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    Open Positions
+                </h1>
+                <p className="text-gray-600 dark:text-zinc-400 mt-2">
+                    Discover your next engineering challenge.
+                </p>
             </div>
 
             {/* Pass data to the Client Wrapper to handle filtering interactivity */}
-            <JobListingContainer filters={filterObj} jobs={jobs  || []} total={total}/>
+            <JobListingContainer filters={filterObj} jobs={jobs || []} total={total} />
         </div>
     );
 }
-
-
-

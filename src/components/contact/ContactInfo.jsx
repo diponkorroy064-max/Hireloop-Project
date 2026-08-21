@@ -1,5 +1,5 @@
 "use client";
-
+import React from "react";
 import { motion } from "framer-motion";
 import {
     Mail,
@@ -53,25 +53,25 @@ export default function ContactInfo() {
                             delay: index * 0.1,
                         }}
                         whileHover={{ y: -5 }}
-                        className="rounded-2xl border border-zinc-800 bg-zinc-900/70 p-6 transition-colors hover:border-indigo-500/40"
+                        className="group rounded-2xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/70 p-6 shadow-sm dark:shadow-none transition-all duration-300 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 hover:shadow-md dark:hover:shadow-indigo-500/10 cursor-pointer"
                     >
 
-                        <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-500/10">
+                        <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-50 dark:bg-indigo-500/10 transition-colors duration-300 group-hover:bg-indigo-100 dark:group-hover:bg-indigo-900/40">
                             <Icon
                                 size={20}
-                                className="text-indigo-400"
+                                className="text-indigo-600 dark:text-indigo-400 transition-transform duration-300 group-hover:scale-110"
                             />
                         </div>
 
-                        <h3 className="font-semibold text-white">
+                        <h3 className="font-semibold text-gray-900 dark:text-white transition-colors duration-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
                             {item.title}
                         </h3>
 
-                        <p className="mt-2 text-sm font-medium text-zinc-200">
+                        <p className="mt-2 text-sm font-medium text-gray-800 dark:text-zinc-200">
                             {item.value}
                         </p>
 
-                        <p className="mt-1 text-sm text-zinc-500">
+                        <p className="mt-1 text-sm text-gray-500 dark:text-zinc-400">
                             {item.description}
                         </p>
 

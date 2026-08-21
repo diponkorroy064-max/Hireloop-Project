@@ -2,14 +2,15 @@
 
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
-export default function ThemeProvider({ children }) {
+export function ThemeProvider({ children, ...props }) {
     return (
         <NextThemesProvider
-            attribute="data-theme"
-            defaultTheme="light"
-            enableSystem={false}>
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            {...props}
+        >
             {children}
         </NextThemesProvider>
     );
 }
-

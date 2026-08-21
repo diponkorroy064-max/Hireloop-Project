@@ -1,6 +1,8 @@
 "use client";
+
+import React from "react";
 import { motion } from "framer-motion";
-import { Search, ShieldCheck, LayoutDashboard, Filter, Bell, Building2} from "lucide-react";
+import { Search, ShieldCheck, LayoutDashboard, Filter, Bell, Building2 } from "lucide-react";
 
 const features = [
     {
@@ -41,10 +43,9 @@ const features = [
     },
 ];
 
-
 const AboutFeatures = () => {
     return (
-        <section className="bg-zinc-900/30 px-6 py-24">
+        <section className="bg-gray-100/60 dark:bg-zinc-900/30 px-6 py-24 transition-colors duration-300">
             <div className="mx-auto max-w-7xl">
 
                 <motion.div
@@ -52,16 +53,17 @@ const AboutFeatures = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="max-w-2xl md:max-w-5xl text-center mx-auto">
-                    <p className="text-sm font-semibold uppercase tracking-widest text-indigo-400">
+                    className="max-w-2xl md:max-w-5xl text-center mx-auto"
+                >
+                    <p className="text-sm font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
                         Platform Features
                     </p>
 
-                    <h2 className="mt-3 text-3xl font-bold md:text-4xl">
+                    <h2 className="mt-3 text-3xl font-bold md:text-4xl text-gray-900 dark:text-white">
                         Everything You Need For Modern Hiring
                     </h2>
 
-                    <p className="mt-4 text-zinc-400">
+                    <p className="mt-4 text-gray-600 dark:text-zinc-400">
                         HireLoop provides powerful tools for both candidates
                         and companies.
                     </p>
@@ -82,23 +84,29 @@ const AboutFeatures = () => {
                                     opacity: 1,
                                     scale: 1,
                                 }}
+                                whileHover={{
+                                    y: -5,
+                                    scale: 1.02,
+                                }}
                                 viewport={{ once: true }}
                                 transition={{
-                                    duration: 0.5,
-                                    delay: index * 0.08,
+                                    duration: 0.3,
+                                    delay: index * 0.05,
                                 }}
-                                className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6"
+                                className="group relative rounded-2xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-6 shadow-sm dark:shadow-none hover:border-indigo-500/50 dark:hover:border-indigo-500/50 hover:shadow-md dark:hover:shadow-indigo-500/10 transition-all duration-300 cursor-pointer"
                             >
-                                <Icon
-                                    size={24}
-                                    className="text-indigo-400"
-                                />
+                                <div className="inline-block rounded-xl bg-indigo-50 dark:bg-indigo-950/50 p-3 transition-colors duration-300 group-hover:bg-indigo-100 dark:group-hover:bg-indigo-900/50">
+                                    <Icon
+                                        size={24}
+                                        className="text-indigo-600 dark:text-indigo-400 transition-transform duration-300 group-hover:scale-110"
+                                    />
+                                </div>
 
-                                <h3 className="mt-5 text-lg font-semibold">
+                                <h3 className="mt-5 text-lg font-semibold text-gray-900 dark:text-white transition-colors duration-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
                                     {feature.title}
                                 </h3>
 
-                                <p className="mt-3 text-sm leading-6 text-zinc-400">
+                                <p className="mt-3 text-sm leading-6 text-gray-600 dark:text-zinc-400">
                                     {feature.description}
                                 </p>
                             </motion.div>
