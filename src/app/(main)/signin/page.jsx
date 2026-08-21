@@ -30,7 +30,7 @@ function SignInContent() {
             return;
         }
 
-        toast.success("Welcome Back 🎉");
+        toast.success("Welcome Back to HireLoop 🎉");
         router.push(redirectTo);
     };
 
