@@ -181,8 +181,7 @@ function SignInContent() {
 
                             <Link
                                 href="/forgot-password"
-                                className="font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 transition-colors"
-                            >
+                                className="font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 transition-colors">
                                 Forgot password?
                             </Link>
                         </div>
@@ -216,8 +215,7 @@ function SignInContent() {
                         Don't have an account?{" "}
                         <Link
                             href={`/signup?redirect=${redirectTo}`}
-                            className="font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 transition-colors"
-                        >
+                            className="font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 transition-colors">
                             Create Account
                         </Link>
                     </p>

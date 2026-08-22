@@ -104,7 +104,7 @@ export default function Navbar() {
 
                                 <button
                                     onClick={async () => await authClient.signOut()}
-                                    className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-2 text-sm font-semibold text-red-600 dark:text-red-400 transition hover:bg-red-500 hover:text-white">
+                                    className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-2 text-sm font-semibold text-red-600 dark:text-red-400 transition hover:bg-red-500 hover:text-white cursor-pointer">
                                     Sign Out
                                 </button>
                             </div>
@@ -166,7 +166,7 @@ export default function Navbar() {
 
                             {user ? (
                                 <button
-                                    className="w-full rounded-xl bg-red-600 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-red-700"
+                                    className="w-full rounded-xl bg-red-600 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-red-700 cursor-pointer"
                                     onClick={async () => {
                                         setIsOpen(false);
                                         await authClient.signOut();

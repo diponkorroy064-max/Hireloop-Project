@@ -14,6 +14,7 @@ const RecruiterJobsClient = ({ jobs = [] }) => {
         }
     };
 
+    
     return (
         <div className="p-6 max-w-7xl mx-auto space-y-6 text-slate-900 dark:text-slate-100">
             {/* Header Section */}
