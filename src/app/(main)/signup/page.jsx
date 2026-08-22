@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useState, Suspense } from 'react';
 import { Button, FieldError, Form, Input, Label, TextField } from "@heroui/react";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -9,6 +8,7 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { authClient } from '@/lib/auth-client';
 import { toast } from 'react-toastify';
+
 
 const SignUpForm = () => {
     const [isShowPass, setIsShowPass] = useState(false);
@@ -76,48 +76,48 @@ const SignUpForm = () => {
     };
 
     return (
-        <div className="relative min-h-screen w-full bg-zinc-950 text-zinc-100 flex items-center justify-center p-4 md:p-8 overflow-hidden">
+        <div className="relative min-h-screen w-full bg-slate-50 dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 flex items-center justify-center p-4 md:p-8 overflow-hidden transition-colors duration-300">
             {/* Background Ambient Glows */}
-            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-blue-600/15 rounded-full blur-[140px] pointer-events-none" />
-            <div className="absolute bottom-10 right-10 w-100 h-100 bg-violet-600/10 rounded-full blur-[120px] pointer-events-none" />
+            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-blue-500/10 dark:bg-blue-600/15 rounded-full blur-[140px] pointer-events-none" />
+            <div className="absolute bottom-10 right-10 w-100 h-100 bg-violet-500/10 dark:bg-violet-600/10 rounded-full blur-[120px] pointer-events-none" />
 
-            <div className="relative w-full max-w-5xl overflow-hidden rounded-3xl border border-zinc-800/80 bg-zinc-900/50 backdrop-blur-2xl shadow-2xl grid lg:grid-cols-12 min-h-175">
+            <div className="relative w-full max-w-5xl overflow-hidden rounded-3xl border border-slate-200/80 dark:border-zinc-800/80 bg-white/70 dark:bg-zinc-900/50 backdrop-blur-2xl shadow-xl dark:shadow-2xl grid lg:grid-cols-12 min-h-175 transition-colors duration-300">
 
                 {/* LEFT BRANDING SECTION */}
-                <div className="hidden lg:flex lg:col-span-5 flex-col justify-between p-10 border-r border-zinc-800/80 bg-linear-to-br from-blue-900/20 via-zinc-900/40 to-transparent relative overflow-hidden">
-                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f293710_1px,transparent_1px),linear-gradient(to_bottom,#1f293710_1px,transparent_1px)] bg-position-[32px_32px] pointer-events-none" />
+                <div className="hidden lg:flex lg:col-span-5 flex-col justify-between p-10 border-r border-slate-200/80 dark:border-zinc-800/80 bg-linear-to-br from-blue-50/50 via-slate-50/30 to-transparent dark:from-blue-900/20 dark:via-zinc-900/40 dark:to-transparent relative overflow-hidden">
+                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f010_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f010_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#1f293710_1px,transparent_1px),linear-gradient(to_bottom,#1f293710_1px,transparent_1px)] bg-position-[32px_32px] pointer-events-none" />
 
                     <div className="relative z-10">
-                        <span className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-3.5 py-1.5 text-xs font-medium text-blue-400 backdrop-blur-md">
+                        <span className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-3.5 py-1.5 text-xs font-medium text-blue-600 dark:text-blue-400 backdrop-blur-md">
                             <Sparkles size={14} /> Welcome to HireLoop
                         </span>
 
-                        <h1 className="mt-8 text-4xl font-extrabold tracking-tight text-white leading-[1.15]">
+                        <h1 className="mt-8 text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.15]">
                             Find Your <br />
-                            <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-indigo-400 to-violet-400">
+                            <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 via-indigo-600 to-violet-600 dark:from-blue-400 dark:via-indigo-400 dark:to-violet-400">
                                 Dream Career
                             </span>
                         </h1>
 
-                        <p className="mt-4 text-zinc-400 text-sm leading-relaxed">
+                        <p className="mt-4 text-slate-600 dark:text-zinc-400 text-sm leading-relaxed">
                             Join thousands of job seekers and employers matching skills with dynamic opportunities daily.
                         </p>
                     </div>
 
                     <div className="relative z-10 space-y-4">
                         <div className="grid grid-cols-2 gap-3">
-                            <div className="p-4 rounded-2xl bg-zinc-950/60 border border-zinc-800/80 backdrop-blur-sm">
-                                <h3 className="text-2xl font-bold text-white">5K+</h3>
-                                <p className="text-xs text-zinc-400 mt-0.5">Active Jobs</p>
+                            <div className="p-4 rounded-2xl bg-slate-100/80 dark:bg-zinc-950/60 border border-slate-200/80 dark:border-zinc-800/80 backdrop-blur-sm">
+                                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">5K+</h3>
+                                <p className="text-xs text-slate-500 dark:text-zinc-400 mt-0.5">Active Jobs</p>
                             </div>
-                            <div className="p-4 rounded-2xl bg-zinc-950/60 border border-zinc-800/80 backdrop-blur-sm">
-                                <h3 className="text-2xl font-bold text-white">2K+</h3>
-                                <p className="text-xs text-zinc-400 mt-0.5">Companies</p>
+                            <div className="p-4 rounded-2xl bg-slate-100/80 dark:bg-zinc-950/60 border border-slate-200/80 dark:border-zinc-800/80 backdrop-blur-sm">
+                                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">2K+</h3>
+                                <p className="text-xs text-slate-500 dark:text-zinc-400 mt-0.5">Companies</p>
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-blue-950/30 border border-blue-800/30 text-xs text-blue-300">
-                            <ShieldCheck size={20} className="shrink-0 text-blue-400" />
+                        <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800/30 text-xs text-blue-700 dark:text-blue-300">
+                            <ShieldCheck size={20} className="shrink-0 text-blue-600 dark:text-blue-400" />
                             <span>Verified profiles & secure application handling guaranteed.</span>
                         </div>
                     </div>
@@ -128,8 +128,8 @@ const SignUpForm = () => {
                     <div className="w-full max-w-md mx-auto space-y-6">
 
                         <div className="text-center sm:text-left">
-                            <h2 className="text-3xl font-bold text-white tracking-tight">Create Account</h2>
-                            <p className="text-zinc-400 text-sm mt-1">
+                            <h2 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Create Account</h2>
+                            <p className="text-slate-500 dark:text-zinc-400 text-sm mt-1">
                                 Select your path and start your journey with us
                             </p>
                         </div>
@@ -138,7 +138,7 @@ const SignUpForm = () => {
 
                             {/* ROLE SELECTION */}
                             <div className="flex flex-col gap-1.5">
-                                <Label className="text-xs font-semibold text-zinc-300 uppercase tracking-wider">
+                                <Label className="text-xs font-semibold text-slate-600 dark:text-zinc-300 uppercase tracking-wider">
                                     I want to join as a
                                 </Label>
 
@@ -149,50 +149,50 @@ const SignUpForm = () => {
                                         type="button"
                                         onClick={() => setRole('seeker')}
                                         className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${role === 'seeker'
-                                            ? 'border-blue-500 bg-blue-500/10 text-white'
-                                            : 'border-zinc-800 bg-zinc-950/40 text-zinc-400 hover:border-zinc-700'
+                                            ? 'border-blue-500 bg-blue-500/10 text-slate-900 dark:text-white shadow-xs'
+                                            : 'border-slate-200 dark:border-zinc-800 bg-slate-100/50 dark:bg-zinc-950/40 text-slate-500 dark:text-zinc-400 hover:border-slate-300 dark:hover:border-zinc-700'
                                             }`}>
                                         <div className="flex items-center gap-2 text-sm font-medium">
-                                            <User size={16} className={role === 'seeker' ? 'text-blue-400' : 'text-zinc-400'} />
+                                            <User size={16} className={role === 'seeker' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400 dark:text-zinc-400'} />
                                             Job Seeker
                                         </div>
-                                        <div className={`w-2 h-2 rounded-full ${role === 'seeker' ? 'bg-blue-400' : 'bg-transparent'}`} />
+                                        <div className={`w-2 h-2 rounded-full ${role === 'seeker' ? 'bg-blue-600 dark:bg-blue-400' : 'bg-transparent'}`} />
                                     </button>
 
                                     <button
                                         type="button"
                                         onClick={() => setRole('recruiter')}
                                         className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${role === 'recruiter'
-                                            ? 'border-blue-500 bg-blue-500/10 text-white'
-                                            : 'border-zinc-800 bg-zinc-950/40 text-zinc-400 hover:border-zinc-700'
+                                            ? 'border-blue-500 bg-blue-500/10 text-slate-900 dark:text-white shadow-xs'
+                                            : 'border-slate-200 dark:border-zinc-800 bg-slate-100/50 dark:bg-zinc-950/40 text-slate-500 dark:text-zinc-400 hover:border-slate-300 dark:hover:border-zinc-700'
                                             }`}>
                                         <div className="flex items-center gap-2 text-sm font-medium">
-                                            <Briefcase size={16} className={role === 'recruiter' ? 'text-blue-400' : 'text-zinc-400'} />
+                                            <Briefcase size={16} className={role === 'recruiter' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400 dark:text-zinc-400'} />
                                             Recruiter
                                         </div>
-                                        <div className={`w-2 h-2 rounded-full ${role === 'recruiter' ? 'bg-blue-400' : 'bg-transparent'}`} />
+                                        <div className={`w-2 h-2 rounded-full ${role === 'recruiter' ? 'bg-blue-600 dark:bg-blue-400' : 'bg-transparent'}`} />
                                     </button>
                                 </div>
                             </div>
 
                             {/* NAME */}
                             <TextField isRequired name="name" type="text">
-                                <Label className="text-xs text-zinc-300 font-medium">Full Name</Label>
+                                <Label className="text-xs text-slate-700 dark:text-zinc-300 font-medium">Full Name</Label>
                                 <Input
-                                    className="mt-1 w-full rounded-xl border border-zinc-800 bg-zinc-950/60 px-3.5 py-2.5 text-sm text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none transition-colors"
+                                    className="mt-1 w-full rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-950/60 px-3.5 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:border-blue-500 focus:outline-none transition-colors"
                                     placeholder="John Doe"
                                 />
-                                <FieldError className="text-xs text-red-400 mt-1" />
+                                <FieldError className="text-xs text-red-500 dark:text-red-400 mt-1" />
                             </TextField>
 
                             {/* PROFILE IMAGE URL */}
                             <TextField isRequired name="image" type="text">
-                                <Label className="text-xs text-zinc-300 font-medium">Profile Image URL</Label>
+                                <Label className="text-xs text-slate-700 dark:text-zinc-300 font-medium">Profile Image URL</Label>
                                 <Input
-                                    className="mt-1 w-full rounded-xl border border-zinc-800 bg-zinc-950/60 px-3.5 py-2.5 text-sm text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none transition-colors"
+                                    className="mt-1 w-full rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-950/60 px-3.5 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:border-blue-500 focus:outline-none transition-colors"
                                     placeholder="https://example.com/avatar.jpg"
                                 />
-                                <FieldError className="text-xs text-red-400 mt-1" />
+                                <FieldError className="text-xs text-red-500 dark:text-red-400 mt-1" />
                             </TextField>
 
                             {/* EMAIL */}
@@ -201,12 +201,12 @@ const SignUpForm = () => {
                                 name="email"
                                 type="email"
                                 validate={(val) => (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(val) ? "Enter a valid email address" : null)}>
-                                <Label className="text-xs text-zinc-300 font-medium">Email Address</Label>
+                                <Label className="text-xs text-slate-700 dark:text-zinc-300 font-medium">Email Address</Label>
                                 <Input
-                                    className="mt-1 w-full rounded-xl border border-zinc-800 bg-zinc-950/60 px-3.5 py-2.5 text-sm text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none transition-colors"
+                                    className="mt-1 w-full rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-950/60 px-3.5 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:border-blue-500 focus:outline-none transition-colors"
                                     placeholder="john@example.com"
                                 />
-                                <FieldError className="text-xs text-red-400 mt-1" />
+                                <FieldError className="text-xs text-red-500 dark:text-red-400 mt-1" />
                             </TextField>
 
                             {/* PASSWORD GRID */}
@@ -223,21 +223,21 @@ const SignUpForm = () => {
                                         if (!/[0-9]/.test(val)) return "Needs number";
                                         return null;
                                     }}>
-                                    <Label className="text-xs text-zinc-300 font-medium">Password</Label>
+                                    <Label className="text-xs text-slate-700 dark:text-zinc-300 font-medium">Password</Label>
                                     <div className="relative mt-1">
                                         <Input
                                             onChange={(e) => setPasswordValue(e.target.value)}
-                                            className="w-full rounded-xl border border-zinc-800 bg-zinc-950/60 pl-3.5 pr-10 py-2.5 text-sm text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none transition-colors"
+                                            className="w-full rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-950/60 pl-3.5 pr-10 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:border-blue-500 focus:outline-none transition-colors"
                                             placeholder="••••••••"
                                         />
                                         <button
                                             type="button"
                                             onClick={() => setIsShowPass(!isShowPass)}
-                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white transition-colors">
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-zinc-400 hover:text-slate-700 dark:hover:text-white transition-colors">
                                             {isShowPass ? <FaEyeSlash size={14} /> : <FaEye size={14} />}
                                         </button>
                                     </div>
-                                    <FieldError className="text-xs text-red-400 mt-1" />
+                                    <FieldError className="text-xs text-red-500 dark:text-red-400 mt-1" />
                                 </TextField>
 
                                 {/* CONFIRM PASSWORD */}
@@ -246,20 +246,20 @@ const SignUpForm = () => {
                                     name="confirmPassword"
                                     type={isShowConfirmPass ? "text" : "password"}
                                     validate={(val) => (val !== passwordValue ? "Passwords match failed" : null)}>
-                                    <Label className="text-xs text-zinc-300 font-medium">Confirm Password</Label>
+                                    <Label className="text-xs text-slate-700 dark:text-zinc-300 font-medium">Confirm Password</Label>
                                     <div className="relative mt-1">
                                         <Input
-                                            className="w-full rounded-xl border border-zinc-800 bg-zinc-950/60 pl-3.5 pr-10 py-2.5 text-sm text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none transition-colors"
+                                            className="w-full rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-950/60 pl-3.5 pr-10 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:border-blue-500 focus:outline-none transition-colors"
                                             placeholder="••••••••"
                                         />
                                         <button
                                             type="button"
                                             onClick={() => setIsShowConfirmPass(!isShowConfirmPass)}
-                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white transition-colors">
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-zinc-400 hover:text-slate-700 dark:hover:text-white transition-colors">
                                             {isShowConfirmPass ? <FaEyeSlash size={14} /> : <FaEye size={14} />}
                                         </button>
                                     </div>
-                                    <FieldError className="text-xs text-red-400 mt-1" />
+                                    <FieldError className="text-xs text-red-500 dark:text-red-400 mt-1" />
                                 </TextField>
                             </div>
 
@@ -276,9 +276,9 @@ const SignUpForm = () => {
                         {/* DIVIDER */}
                         <div className="relative my-4 text-center">
                             <div className="absolute inset-0 flex items-center">
-                                <div className="w-full border-t border-zinc-800" />
+                                <div className="w-full border-t border-slate-200 dark:border-zinc-800" />
                             </div>
-                            <span className="relative bg-zinc-900 px-3 text-xs text-zinc-500 uppercase tracking-wider">
+                            <span className="relative bg-white dark:bg-zinc-900 px-3 text-xs text-slate-400 dark:text-zinc-500 uppercase tracking-wider">
                                 Or continue with
                             </span>
                         </div>
@@ -287,17 +287,17 @@ const SignUpForm = () => {
                         <Button
                             variant="bordered"
                             onClick={handleSigninGoogle}
-                            className="w-full h-11 rounded-xl border-zinc-800 bg-zinc-950/40 hover:bg-zinc-800/60 text-zinc-200 text-sm font-medium flex items-center justify-center gap-2.5 transition-all cursor-pointer">
+                            className="w-full h-11 rounded-xl border-slate-200 dark:border-zinc-800 bg-slate-100/50 dark:bg-zinc-950/40 hover:bg-slate-200/60 dark:hover:bg-zinc-800/60 text-slate-700 dark:text-zinc-200 text-sm font-medium flex items-center justify-center gap-2.5 transition-all cursor-pointer">
                             <FcGoogle size={18} />
                             Continue with Google
                         </Button>
 
                         {/* FOOTER */}
-                        <p className="text-center text-xs text-zinc-400 pt-2">
+                        <p className="text-center text-xs text-slate-500 dark:text-zinc-400 pt-2">
                             Already have an account?{" "}
                             <Link
                                 href={`/signin?redirect=${redirectTo}`}
-                                className="text-blue-400 hover:text-blue-300 font-medium transition-colors underline-offset-4 hover:underline">
+                                className="text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 font-medium transition-colors underline-offset-4 hover:underline">
                                 Sign In
                             </Link>
                         </p>
@@ -312,7 +312,7 @@ const SignUpForm = () => {
 
 export default function SignUpPage() {
     return (
-        <Suspense fallback={<div className="min-h-screen bg-zinc-950" />}>
+        <Suspense fallback={<div className="min-h-screen bg-slate-50 dark:bg-zinc-950" />}>
             <SignUpForm />
         </Suspense>
     );

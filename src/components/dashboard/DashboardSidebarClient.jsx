@@ -1,10 +1,21 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bell, Bookmark, Briefcase, CreditCard, Envelope, FileText, Gear, House, LayoutSideContent, Magnifier, Person} from "@gravity-ui/icons";
+import {
+    Bell,
+    Bookmark,
+    Briefcase,
+    CreditCard,
+    Envelope,
+    FileText,
+    Gear,
+    House,
+    LayoutSideContent,
+    Magnifier,
+    Person
+} from "@gravity-ui/icons";
 import { Building, Users } from "lucide-react";
 import { Button, Drawer } from "@heroui/react";
-
 
 export default function DashboardSidebarClient({ role }) {
     const pathname = usePathname();
@@ -18,6 +29,7 @@ export default function DashboardSidebarClient({ role }) {
         { icon: Person, href: "/profile", label: "Profile" },
         { icon: Gear, href: "/settings", label: "Settings" },
     ];
+
     const seekerNavLinks = [
         { icon: House, href: "/dashboard/seeker", label: "Dashboard" },
         { icon: Magnifier, href: "/dashboard/seeker/jobs", label: "Jobs" },
@@ -26,6 +38,7 @@ export default function DashboardSidebarClient({ role }) {
         { icon: CreditCard, href: "/dashboard/seeker/billing", label: "Billing" },
         { icon: Gear, href: "/dashboard/seeker/settings", label: "Settings" },
     ];
+
     const adminNavLinks = [
         { icon: House, href: "/dashboard/admin", label: "Dashboard" },
         { icon: Users, href: "/dashboard/admin/users", label: "Users" },
@@ -44,17 +57,26 @@ export default function DashboardSidebarClient({ role }) {
     const navItems = navLinksMap[role] || seekerNavLinks;
 
     const navContent = (
-        <nav className="flex flex-col gap-2">
+        <nav className="flex flex-col gap-1.5">
             {navItems.map((item) => {
-                const isActive = item.href === `/dashboard/${role}` ? pathname === item.href : pathname.startsWith(item.href);
-                console.log(`Checking if ${item.href} is active for role ${role}:`, isActive);
+                const isActive = item.href === `/dashboard/${role}`
+                    ? pathname === item.href
+                    : pathname.startsWith(item.href);
 
                 return (
-                    <Link  key={item.label}  href={item.href}
-                        className={`flex items-center gap-3 rounded-xl px-4 py-3 transition-all duration-200 ${isActive ? "bg-white text-black font-semibold shadow" : "text-gray-400 hover:bg-zinc-800 hover:text-white"}`}>
-                        
-                        <item.icon className={`size-5 ${isActive ? "text-black" : "text-gray-400"}`}/>
-
+                    <Link
+                        key={item.label}
+                        href={item.href}
+                        className={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all duration-200 ${isActive
+                                ? "bg-blue-600 text-white shadow-md shadow-blue-600/20 dark:bg-blue-600 dark:text-white"
+                                : "text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-900/80 hover:text-slate-900 dark:hover:text-white"
+                            }`}>
+                        <item.icon
+                            className={`size-4.5 ${isActive
+                                    ? "text-white"
+                                    : "text-slate-400 dark:text-zinc-400 group-hover:text-slate-900 dark:group-hover:text-white"
+                                }`}
+                        />
                         <span>{item.label}</span>
                     </Link>
                 );
@@ -66,37 +88,39 @@ export default function DashboardSidebarClient({ role }) {
     return (
         <>
             {/* Desktop Sidebar */}
-            <aside className="hidden lg:flex w-72 flex-col bg-[#151515] border-r border-white/10 p-5">
+            <aside className="hidden lg:flex w-72 flex-col bg-white dark:bg-zinc-950 border-r border-slate-200/80 dark:border-zinc-800/80 p-4 transition-colors duration-300">
                 {navContent}
             </aside>
 
-            {/* Mobile Drawer */}
-            <Drawer>
-                <Button
-                    isIconOnly
-                    className="lg:hidden"
-                    variant="light">
-                    <LayoutSideContent />
-                </Button>
+            {/* Mobile Drawer Trigger */}
+            <div className="lg:hidden p-3">
+                <Drawer>
+                    <Button
+                        isIconOnly
+                        variant="light"
+                        className="text-slate-700 dark:text-zinc-200 hover:bg-slate-100 dark:hover:bg-zinc-900">
+                        <LayoutSideContent className="size-5" />
+                    </Button>
 
-                <Drawer.Backdrop />
+                    <Drawer.Backdrop />
 
-                <Drawer.Content placement="left">
-                    <Drawer.Dialog className="bg-[#151515] text-white">
-                        <Drawer.CloseTrigger />
+                    <Drawer.Content placement="left">
+                        <Drawer.Dialog className="bg-white dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 border-r border-slate-200/80 dark:border-zinc-800/80">
+                            <Drawer.CloseTrigger />
 
-                        <Drawer.Header>
-                            <Drawer.Heading className="text-xl">
-                                Navigation
-                            </Drawer.Heading>
-                        </Drawer.Header>
+                            <Drawer.Header>
+                                <Drawer.Heading className="text-lg font-semibold text-slate-900 dark:text-white">
+                                    Navigation
+                                </Drawer.Heading>
+                            </Drawer.Header>
 
-                        <Drawer.Body>{navContent}</Drawer.Body>
-                    </Drawer.Dialog>
-                </Drawer.Content>
-            </Drawer>
+                            <Drawer.Body className="px-3 py-2">
+                                {navContent}
+                            </Drawer.Body>
+                        </Drawer.Dialog>
+                    </Drawer.Content>
+                </Drawer>
+            </div>
         </>
     );
 }
-
-

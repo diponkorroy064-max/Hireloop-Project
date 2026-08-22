@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
@@ -7,6 +6,7 @@ import { Menu, X } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { Avatar } from "@heroui/react";
 import ThemeToggle from "./ThemeToggle";
+
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -42,10 +42,11 @@ export default function Navbar() {
         return pathname.startsWith(href);
     };
 
+
     return (
         <header className="sticky top-0 z-50 w-full border-b border-gray-400 dark:border-gray-600/80 bg-white/80 dark:bg-black backdrop-blur-md transition-colors duration-300">
             <nav className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between rounded-2xl border border-gray-200/60 dark:border-gray-800/60 bg-gray-50/70 dark:bg-gray-900/70 px-5 py-3 shadow-sm backdrop-blur-md transition-colors">
+                <div className="flex items-center justify-between rounded-2xl border border-gray-400/60 dark:border-gray-800 bg-gray-50/70 dark:bg-gray-900/70 px-5 py-3 shadow-sm backdrop-blur-md transition-colors">
                     {/* Logo */}
                     <div>
                         <Link href="/" className="flex items-center">
@@ -69,8 +70,7 @@ export default function Navbar() {
                                         className={`text-sm font-medium transition-colors ${active
                                                 ? "text-sky-600 dark:text-sky-400 font-semibold border-b-2 border-sky-500 pb-0.5"
                                                 : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-                                            }`}
-                                    >
+                                            }`}>
                                         {link.name}
                                     </Link>
                                 );
@@ -93,8 +93,7 @@ export default function Navbar() {
                                     <Avatar className="cursor-pointer transition-transform hover:scale-105 ring-2 ring-sky-500/40">
                                         <Avatar.Image
                                             alt={user?.name || "User"}
-                                            src={user?.image}
-                                        />
+                                            src={user?.image}/>
                                         <Avatar.Fallback className="bg-sky-500 text-white font-semibold">
                                             {user?.name
                                                 ? user.name.slice(0, 2).toUpperCase()
@@ -105,24 +104,17 @@ export default function Navbar() {
 
                                 <button
                                     onClick={async () => await authClient.signOut()}
-                                    className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-2 text-sm font-semibold text-red-600 dark:text-red-400 transition hover:bg-red-500 hover:text-white"
-                                >
+                                    className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-2 text-sm font-semibold text-red-600 dark:text-red-400 transition hover:bg-red-500 hover:text-white">
                                     Sign Out
                                 </button>
                             </div>
                         ) : (
                             <div className="flex items-center gap-3">
-                                <Link
-                                    href="/signin"
-                                    className="rounded-xl border border-indigo-500/30 bg-indigo-500/10 px-4 py-2 text-sm font-semibold text-indigo-600 dark:text-indigo-300 transition hover:bg-indigo-600 hover:text-white"
-                                >
+                                <Link href="/signin" className="rounded-xl border border-indigo-500/30 bg-indigo-500/10 px-4 py-2 text-sm font-semibold text-indigo-600 dark:text-indigo-300 transition hover:bg-indigo-600 hover:text-white">
                                     Sign In
                                 </Link>
 
-                                <Link
-                                    href="/signup"
-                                    className="rounded-xl bg-indigo-600 dark:bg-indigo-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 dark:hover:bg-indigo-600 hover:scale-105"
-                                >
+                                <Link href="/signup" className="rounded-xl bg-indigo-600 dark:bg-indigo-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 dark:hover:bg-indigo-600 hover:scale-105">
                                     Get Started
                                 </Link>
                             </div>
@@ -144,11 +136,7 @@ export default function Navbar() {
                             </Link>
                         )}
 
-                        <button
-                            onClick={() => setIsOpen(!isOpen)}
-                            className="text-gray-700 dark:text-gray-300 p-1.5 rounded-lg hover:bg-gray-200/50 dark:hover:bg-gray-800/50 focus:outline-none transition-colors"
-                            aria-label="Toggle Menu"
-                        >
+                        <button onClick={() => setIsOpen(!isOpen)} className="text-gray-700 dark:text-gray-300 p-1.5 rounded-lg hover:bg-gray-200/50 dark:hover:bg-gray-800/50 focus:outline-none transition-colors" aria-label="Toggle Menu">
                             {isOpen ? <X size={24} /> : <Menu size={24} />}
                         </button>
                     </div>
@@ -168,8 +156,7 @@ export default function Navbar() {
                                         className={`text-base font-medium py-1.5 transition-colors ${active
                                                 ? "text-sky-500 font-semibold pl-2 border-l-2 border-sky-500"
                                                 : "text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-                                            }`}
-                                    >
+                                            }`}>
                                         {link.name}
                                     </Link>
                                 );
@@ -183,8 +170,7 @@ export default function Navbar() {
                                     onClick={async () => {
                                         setIsOpen(false);
                                         await authClient.signOut();
-                                    }}
-                                >
+                                    }}>
                                     Sign Out
                                 </button>
                             ) : (
@@ -192,16 +178,14 @@ export default function Navbar() {
                                     <Link
                                         href="/signin"
                                         onClick={() => setIsOpen(false)}
-                                        className="w-full rounded-xl border border-indigo-500/30 bg-indigo-500/10 py-2.5 text-center text-sm font-semibold text-indigo-600 dark:text-indigo-300 transition hover:bg-indigo-600 hover:text-white"
-                                    >
+                                        className="w-full rounded-xl border border-indigo-500/30 bg-indigo-500/10 py-2.5 text-center text-sm font-semibold text-indigo-600 dark:text-indigo-300 transition hover:bg-indigo-600 hover:text-white">
                                         Sign In
                                     </Link>
 
                                     <Link
                                         href="/signup"
                                         onClick={() => setIsOpen(false)}
-                                        className="w-full rounded-xl bg-indigo-600 dark:bg-indigo-500 py-2.5 text-center text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700"
-                                    >
+                                        className="w-full rounded-xl bg-indigo-600 dark:bg-indigo-500 py-2.5 text-center text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700">
                                         Get Started
                                     </Link>
                                 </div>
