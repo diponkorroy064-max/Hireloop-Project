@@ -1,10 +1,9 @@
 "use client";
-
 import React from "react";
 import { MapPin, Briefcase, CircleDollarSign, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-// Mock data array
+// Mock data array---
 const jobOpenings = [
     {
         id: 1,
@@ -71,8 +70,7 @@ export default function JobDiscoverySection() {
                     {jobOpenings.map((job) => (
                         <div
                             key={job.id}
-                            className="bg-white dark:bg-[#0D0D0D]/90 border border-gray-200 dark:border-white/10 rounded-2xl p-8 flex flex-col items-start shadow-sm dark:shadow-none hover:border-indigo-500/50 dark:hover:border-gray-400 transition-all duration-300 group"
-                        >
+                            className="bg-white dark:bg-[#0D0D0D]/90 border border-gray-200 dark:border-white/10 rounded-2xl p-8 flex flex-col items-start shadow-sm dark:shadow-none hover:border-indigo-500/50 dark:hover:border-gray-400 transition-all duration-300 group">
                             {/* Job Title */}
                             <h3 className="text-xl font-medium text-gray-900 dark:text-white mb-3 tracking-wide">
                                 {job.title}
@@ -100,19 +98,17 @@ export default function JobDiscoverySection() {
                             </div>
 
                             {/* CTA Link */}
-                            <button className="mt-auto flex items-center gap-2 text-sm font-semibold text-indigo-600 dark:text-gray-300 group-hover:text-indigo-700 dark:group-hover:text-white transition-colors duration-200">
+                            <Link href={'/jobs'} className="mt-auto flex items-center gap-2 text-sm font-semibold text-indigo-600 dark:text-gray-300 group-hover:text-indigo-700 dark:group-hover:text-white transition-colors duration-200">
                                 Apply Now
                                 <ArrowRight size={16} className="transform group-hover:translate-x-1 transition-transform duration-200" />
-                            </button>
+                            </Link>
                         </div>
                     ))}
                 </div>
 
                 {/* Footer Button */}
-                <Link href={'/jobs'}>
-                    <button className="bg-gray-900 dark:bg-white text-white dark:text-black text-sm font-semibold px-6 py-3 rounded-xl hover:bg-gray-800 dark:hover:bg-gray-200 shadow-md transition-all duration-200 hover:scale-105 cursor-pointer">
-                        View all job openings
-                    </button>
+                <Link href={'/jobs'} className="bg-gray-900 dark:bg-white text-white dark:text-black text-sm font-semibold px-6 py-3 rounded-xl hover:bg-gray-800 dark:hover:bg-gray-200 shadow-md transition-all duration-200 hover:scale-105 cursor-pointer">
+                    View all job openings
                 </Link>
             </div>
         </section>

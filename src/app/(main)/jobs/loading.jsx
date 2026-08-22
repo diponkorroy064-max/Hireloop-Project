@@ -1,5 +1,6 @@
 import React from "react";
 
+
 export default function JobsLoading() {
     return (
         <div className="w-full min-h-screen bg-slate-50 dark:bg-zinc-950 p-6 md:p-12 text-slate-900 dark:text-white transition-colors duration-300">

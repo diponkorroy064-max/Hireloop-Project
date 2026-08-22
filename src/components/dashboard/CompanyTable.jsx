@@ -1,181 +1,270 @@
 'use client';
 import React from 'react';
-import { Table, Button } from '@heroui/react';
-import { CircleArrowDownFill } from '@gravity-ui/icons';
+import { Button } from '@heroui/react';
 import { updateCompany } from '@/lib/actions/companies';
 
 
-const CompanyTable = ({ companies }) => {
-    // console.log(companies);
-
+const CompanyTable = ({ companies = [] }) => {
+    console.log('conaies from admin company table', companies);
     const handleApprove = async (id) => {
-        const result = await updateCompany(id, { status: 'Approved' })
+        const result = await updateCompany(id, { status: 'Approved' });
 
-        if (result.modifiedCount) {
+        if (result?.modifiedCount) {
             console.log(`Approved company with ID: ${id}`, result);
         }
     };
 
     const handleReject = async (id) => {
-        const result = await updateCompany(id, { status: 'Rejected' })
+        const result = await updateCompany(id, { status: 'Rejected' });
 
-        if (result.modifiedCount) {
+        if (result?.modifiedCount) {
             console.log(`Rejected company with ID: ${id}`, result);
         }
     };
 
-    // Helper to format date cleanly like "Oct 12, 2023"-----
     const formatDate = (dateString) => {
-        if (!dateString) return '';
+        if (!dateString) return 'N/A';
+
         const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', {
+
+        if (isNaN(date.getTime())) return dateString;
+
+        return new Intl.DateTimeFormat('en-US', {
             month: 'short',
-            day: '2-digit',
+            day: 'numeric',
             year: 'numeric',
-        });
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true,
+        }).format(date);
     };
 
-    // Status mapping for visual styling---
     const getStatusDetails = (status) => {
         switch (status?.toLowerCase()) {
             case 'approved':
-                return { color: 'text-emerald-500', label: 'Approved' };
+                return {
+                    color: 'text-emerald-700 dark:text-emerald-400',
+                    dotColor: 'bg-emerald-500',
+                    bgColor:
+                        'bg-emerald-50 dark:bg-emerald-500/10 border-emerald-200 dark:border-emerald-500/20',
+                    label: 'Approved',
+                };
+
             case 'rejected':
-                return { color: 'text-rose-500', label: 'Rejected' };
+                return {
+                    color: 'text-rose-700 dark:text-rose-400',
+                    dotColor: 'bg-rose-500',
+                    bgColor:
+                        'bg-rose-50 dark:bg-rose-500/10 border-rose-200 dark:border-rose-500/20',
+                    label: 'Rejected',
+                };
+
             case 'pending':
             default:
-                return { color: 'text-amber-500', label: 'Pending' };
+                return {
+                    color: 'text-amber-700 dark:text-amber-400',
+                    dotColor: 'bg-amber-500',
+                    bgColor:
+                        'bg-amber-50 dark:bg-amber-500/10 border-amber-200 dark:border-amber-500/20',
+                    label: 'Pending',
+                };
         }
     };
 
-    // Helper to generate initials for the placeholder icon
     const getInitials = (name) => {
-        return name ? name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'CO';
+        return name
+            ? name
+                .split(' ')
+                .map((word) => word[0])
+                .join('')
+                .substring(0, 2)
+                .toUpperCase()
+            : 'CO';
     };
 
-    
     return (
-        <div className="text-neutral-200 p-6">
-            <Table className="bg-transparent">
-                <Table.ScrollContainer>
-                    <Table.Content aria-label="Company approval management table">
-                        <Table.Header>
-                            {/* Add the isRowHeader prop to your primary identifying column */}
-                            <Table.Column isRowHeader className="text-neutral-400 font-medium pb-4 border-b border-neutral-800">
-                                Company Name
-                            </Table.Column>
+        <div className="w-full">
+            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
+                {/* Table Header */}
+                <div className="border-b border-slate-200 px-5 py-4 dark:border-zinc-800">
+                    <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
+                        Company Management
+                    </h2>
 
-                            {/* <Table.Column className="text-neutral-400 font-medium pb-4 border-b border-neutral-800">
-                                Recruiter Email
-                            </Table.Column> */}
+                    <p className="mt-1 text-sm text-slate-500 dark:text-zinc-400">
+                        Review and manage company registration requests.
+                    </p>
+                </div>
 
-                            <Table.Column className="text-neutral-400 font-medium pb-4 border-b border-neutral-800">
-                                Industry
-                            </Table.Column>
+                <div className="overflow-x-auto">
+                    <table className="w-full min-w-237.5 border-collapse">
+                        <thead>
+                            <tr className="border-b border-slate-200 bg-slate-50 dark:border-zinc-800 dark:bg-zinc-900/60">
+                                <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-zinc-400">
+                                    Company
+                                </th>
 
-                            <Table.Column className="text-neutral-400 font-medium pb-4 border-b border-neutral-800">
-                                Jobs Count
-                            </Table.Column>
+                                <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-zinc-400">
+                                    Industry
+                                </th>
 
-                            <Table.Column className="text-neutral-400 font-medium pb-4 border-b border-neutral-800 text-center">
-                                Status
-                            </Table.Column>
+                                <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-zinc-400">
+                                    Jobs
+                                </th>
 
-                            <Table.Column className="text-neutral-400 font-medium pb-4 border-b border-neutral-800">
-                                Date Submitted
-                            </Table.Column>
+                                <th className="px-5 py-4 text-center text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-zinc-400">
+                                    Status
+                                </th>
 
-                            <Table.Column className="text-neutral-400 font-medium pb-4 border-b border-neutral-800 text-right">
-                                Actions
-                            </Table.Column>
-                        </Table.Header>
-                        <Table.Body>
-                            {companies.map((company) => {
-                                const companyId = company._id?.$oid || company._id;
-                                const statusInfo = getStatusDetails(company.status);
+                                <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-zinc-400">
+                                    Date Submitted
+                                </th>
 
-                                return (
-                                    <Table.Row key={companyId} className="border-b border-neutral-800/50 hover:bg-neutral-900/30 transition-colors">
-                                        {/* Company Avatar & Name */}
-                                        <Table.Cell className="py-4 align-middle">
-                                            <div className="flex items-center gap-3">
-                                                <div className="w-9 h-9 flex items-center justify-center bg-neutral-800 text-neutral-300 rounded font-semibold text-sm tracking-wider">
-                                                    {getInitials(company.name)}
+                                <th className="px-5 py-4 text-right text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-zinc-400">
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {companies.length > 0 ? (
+                                companies.map((company) => {
+                                    const companyId =
+                                        company._id?.$oid || company._id;
+
+                                    const statusInfo = getStatusDetails(
+                                        company.status
+                                    );
+
+                                    return (
+                                        <tr key={companyId} className="border-b border-slate-100 transition-colors hover:bg-slate-50/80 last:border-0 dark:border-zinc-900 dark:hover:bg-zinc-900/50">
+                                            {/* Company */}
+                                            <td className="px-5 py-4">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-slate-100 text-sm font-bold tracking-wide text-slate-700 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200">
+                                                        {getInitials(
+                                                            company.name
+                                                        )}
+                                                    </div>
+
+                                                    <div className="min-w-0">
+                                                        <p className="truncate font-semibold text-slate-900 dark:text-white">
+                                                            {company.name}
+                                                        </p>
+
+                                                        <p className="mt-0.5 truncate text-xs text-slate-500 dark:text-zinc-400">
+                                                            {company.recruiterEmail || company.websiteUrl || 'No email available'}
+                                                        </p>
+                                                    </div>
                                                 </div>
+                                            </td>
 
-                                                <div>
-                                                    <p className="font-medium text-neutral-200">{company.name}</p>
-                                                    <p className="text-neutral-400">{company.recruiterEmail || `recruiter@${company.name.toLowerCase().replace(/\s+/g, '')}.com`}</p>
-                                               </div>
-                                            </div>
-                                        </Table.Cell>
-
-                                        {/* Recruiter Email Placeholder */}
-                                        {/* <Table.Cell className="py-4 align-middle text-neutral-400">
-                                            {company.recruiterEmail || `recruiter@${company.name.toLowerCase().replace(/\s+/g, '')}.com`}
-                                        </Table.Cell> */}
-
-                                        {/* Industry Pill */}
-                                        <Table.Cell className="py-4 align-middle">
-                                            <span className="px-3 py-1 bg-neutral-800/60 text-neutral-400 rounded-full text-xs capitalize">
-                                                {company.industry}
-                                            </span>
-                                        </Table.Cell>
-
-                                        {/* Jobs Count Pill */}
-                                        <Table.Cell className="py-4 align-middle">
-                                            <span className="px-3 py-1 bg-neutral-800/60 text-neutral-400 rounded-full text-xs capitalize">
-                                                {company.jobCount}
-                                            </span>
-                                        </Table.Cell>
-
-                                        {/* Status Dot */}
-                                        <Table.Cell className="py-4 align-middle">
-                                            <div className="flex items-center gap-2">
-                                                <CircleArrowDownFill className={`w-2 h-2 ${statusInfo.color}`} />
-                                                <span className={`text-sm font-medium ${statusInfo.color}`}>
-                                                    {statusInfo.label}
+                                            {/* Industry */}
+                                            <td className="px-5 py-4">
+                                                <span className="inline-flex rounded-lg border border-slate-200 bg-slate-100 px-3 py-1 text-xs font-medium capitalize text-slate-700 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
+                                                    {company.industry || 'N/A'}
                                                 </span>
-                                            </div>
-                                        </Table.Cell>
+                                            </td>
 
-                                        {/* Date Submitted */}
-                                        <Table.Cell className="py-4 align-middle text-neutral-400">
-                                            {formatDate(company.createdAt?.$date || company.createdAt)}
-                                        </Table.Cell>
+                                            {/* Jobs Count */}
+                                            <td className="px-5 py-4">
+                                                <span className="inline-flex min-w-9 items-center justify-center rounded-lg bg-slate-100 px-3 py-1.5 text-sm font-semibold text-slate-700 dark:bg-zinc-800 dark:text-zinc-300">
+                                                    {company.jobCount ?? 0}
+                                                </span>
+                                            </td>
 
-                                        {/* Actions Panel */}
-                                        <Table.Cell className="py-4 align-middle text-right">
-                                            <div className="flex justify-end gap-2">
-                                                {company.status?.toLowerCase() !== 'approved' && (
-                                                    <Button
-                                                        size="sm"
-                                                        variant="light"
-                                                        onClick={() => handleApprove(companyId)}
-                                                        className="bg-emerald-950/30 hover:bg-emerald-900/50 text-emerald-500 border border-emerald-900/60 rounded px-3 py-1 text-xs font-medium transition-colors">
-                                                        Approve
-                                                    </Button>
-                                                )}
-                                                {company.status?.toLowerCase() !== 'rejected' && (
-                                                    <Button
-                                                        size="sm"
-                                                        variant="light"
-                                                        onClick={() => handleReject(companyId)}
-                                                        className="bg-rose-950/20 hover:bg-rose-900/40 text-rose-500 border border-rose-900/40 rounded px-3 py-1 text-xs font-medium transition-colors">
-                                                        Reject
-                                                    </Button>
-                                                )}
+                                            {/* Status */}
+                                            <td className="px-5 py-4 text-center">
+                                                <span
+                                                    className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold ${statusInfo.bgColor}`}
+                                                >
+                                                    <span
+                                                        className={`h-2 w-2 rounded-full ${statusInfo.dotColor}`}
+                                                    />
+
+                                                    <span
+                                                        className={
+                                                            statusInfo.color
+                                                        }
+                                                    >
+                                                        {statusInfo.label}
+                                                    </span>
+                                                </span>
+                                            </td>
+
+                                            {/* Date */}
+                                            <td className="px-5 py-4">
+                                                <span className="whitespace-nowrap text-sm text-slate-500 dark:text-zinc-400">
+                                                    {formatDate(
+                                                        company.createdAt
+                                                            ?.$date ||
+                                                        company.createdAt
+                                                    )}
+                                                </span>
+                                            </td>
+
+                                            {/* Actions */}
+                                            <td className="px-5 py-4">
+                                                <div className="flex justify-end gap-2">
+                                                    {company.status?.toLowerCase() !==
+                                                        'approved' && (
+                                                            <Button
+                                                                size="sm"
+                                                                onClick={() =>
+                                                                    handleApprove(
+                                                                        companyId
+                                                                    )
+                                                                }
+                                                                className="h-9 rounded-lg border border-emerald-200 bg-emerald-50 px-4 text-xs font-semibold text-emerald-700 transition hover:bg-emerald-100 dark:border-emerald-500/20 dark:bg-emerald-500/10 dark:text-emerald-400 dark:hover:bg-emerald-500/20">
+                                                                Approve
+                                                            </Button>
+                                                        )}
+
+                                                    {company.status?.toLowerCase() !==
+                                                        'rejected' && (
+                                                            <Button
+                                                                size="sm"
+                                                                onClick={() =>
+                                                                    handleReject(
+                                                                        companyId
+                                                                    )
+                                                                }
+                                                                className="h-9 rounded-lg border border-rose-200 bg-rose-50 px-4 text-xs font-semibold text-rose-700 transition hover:bg-rose-100 dark:border-rose-500/20 dark:bg-rose-500/10 dark:text-rose-400 dark:hover:bg-rose-500/20">
+                                                                Reject
+                                                            </Button>
+                                                        )}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    );
+                                })
+                            ) : (
+                                <tr>
+                                    <td colSpan="6" className="px-6 py-16 text-center">
+                                        <div className="flex flex-col items-center">
+                                            <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 text-lg dark:bg-zinc-800">
+                                                🏢
                                             </div>
-                                        </Table.Cell>
-                                    </Table.Row>
-                                );
-                            })}
-                        </Table.Body>
-                    </Table.Content>
-                </Table.ScrollContainer>
-            </Table>
+
+                                            <h3 className="font-semibold text-slate-800 dark:text-zinc-200">
+                                                No companies found
+                                            </h3>
+
+                                            <p className="mt-1 text-sm text-slate-500 dark:text-zinc-500">
+                                                There are currently no company
+                                                registrations to display.
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     );
 };
 
 export default CompanyTable;
+
