@@ -10,12 +10,6 @@ HireLoop is a modern full-stack job portal that connects job seekers and recruit
 
 ---
 
-## 🔗 Server Repository
-
-📂 **Server Repository:** https://github.com/your-username/hireloop-server
-
----
-
 ## 💻 Server Repository
 
 📂 **Server Repository:** https://github.com/diponkorroy064-max/Hireloop-Server
